@@ -1,4 +1,4 @@
-# Node POC
+# Node Starter
 This repository includes some demonstration Node based application that 
 uses Jest for the unit testing & technologies such as Express & Knex.
 
@@ -32,3 +32,9 @@ If you would like some debugging information, you can also run:
 ```bash 
 $ npm run-script test:debug
 ```
+
+## Todo
+
+- Implement a complete & mature CI/CD pipeline.
+- Implement a Dockerfile.
+- etc.
