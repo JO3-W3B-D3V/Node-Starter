@@ -79,7 +79,7 @@ class UserController {
         throw new Error(data);
       }
 
-      const user = await this.service.createUser(requestBody);
+      await this.service.createUser(requestBody);
       status = 201;
       header = "text/plain";
     } catch (exception) {
