@@ -1,23 +1,23 @@
 module.exports = {
   test: {
-    client: "sqlite3",
+    client: 'sqlite3',
     connection: {
-      filename: "./resources/test.sqlite",
+      filename: './resources/test.sqlite',
     },
     migrations: {
-      directory: "./resources/migrations",
+      directory: './resources/migrations',
     },
-    useNullAsDefault: true
+    useNullAsDefault: true,
   },
 
   development: {
-    client: "sqlite3",
+    client: 'sqlite3',
     connection: {
-      filename: "./resources/db.sqlite",
+      filename: './resources/db.sqlite',
     },
     migrations: {
-      directory: "./resources/migrations",
+      directory: './resources/migrations',
     },
-    useNullAsDefault: true
-  }
-};
+    useNullAsDefault: true,
+  },
+}

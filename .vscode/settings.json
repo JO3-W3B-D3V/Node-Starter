@@ -1,7 +1,9 @@
 {
+  "prettier.singleQuote": true,
+  "prettier.semi": false,
   "[javascript]": {
     "editor.formatOnSave": true,
-    "editor.formatOnPaste": true
+    "editor.formatOnPaste": true,
   },
   "[markdown]": {
     "editor.formatOnSave": true,
