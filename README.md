@@ -23,18 +23,15 @@ $ docker build -t node-demo .
 $ docker run -p 80:3000 node-demo
 ```
 
-## Migrations
-
-In order to run the database migrations, you'll need to run the following command:
+## Migrationa
+In order to run the database migrations, you'll need to run the following command(s):
 
 ```bash
 $ npx knex migrate:latest
 $ npx knex migrate:latest --env test
 ```
 
-
 ## Unit Tests
-
 In order to urn the unit tests, you'll need to run the following command:
 
 ```bash
