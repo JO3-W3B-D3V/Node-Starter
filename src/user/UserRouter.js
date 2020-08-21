@@ -17,9 +17,13 @@ class UserRouter {
       this.controller.createUser(request, response, next);
     });
 
-    // TODO:
-    //   - Implement a delete request.
-    //   - Implement a put request.
+    router.put("/", (request, response, next) => {
+      this.controller.updateUser(request, response, next);
+    });
+
+    router.delete("/:id", (request, response, next) => {
+      this.controller.deleteUser(request, response, next);
+    });
 
     return router;
   }

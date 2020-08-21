@@ -95,6 +95,18 @@ class UserController {
     response.status(status);
     response.send(data);
   }
+
+  async updateUser(request, response) {
+    response.setHeader("Content-Type", "text/plain");
+    response.status(501);
+    response.send("Not implemented");
+  }
+
+  async deleteUser(request, response) {
+    response.setHeader("Content-Type", "text/plain");
+    response.status(501);
+    response.send("Not implemented");
+  }
 }
 
 module.exports = UserController;

@@ -103,4 +103,33 @@ describe("UserController tests", () => {
         done();
       });
   });
+
+  test("It should update a user", (done) => {
+    process.env["ENV"] = "test";
+    const testUser = {
+      id: 1,
+      forename: "Unit",
+      surname: "Testing123",
+    };
+
+    request(Application.init())
+      .put("/users")
+      .set("content-type", "application/json")
+      .send(JSON.stringify(testUser))
+      .then((response) => {
+        expect(response.statusCode).toBe(501);
+        done();
+      });
+  });
+
+  test("It should delete a user", (done) => {
+    process.env["ENV"] = "test";
+
+    request(Application.init())
+      .delete("/users/1")
+      .then((response) => {
+        expect(response.statusCode).toBe(501);
+        done();
+      });
+  });
 });
