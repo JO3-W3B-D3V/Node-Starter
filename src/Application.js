@@ -45,7 +45,7 @@ class Application {
 
     app.use((err, req, res, next) => {
       res.locals.message = err.message;
-      console.log(err);
+      console.error(err);
       res.status(Application.getErrorStatusCode(err));
       res.setHeader("Content-Type", "text/plain");
       res.end("Internal server error");

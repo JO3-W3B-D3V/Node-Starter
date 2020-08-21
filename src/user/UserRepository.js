@@ -13,7 +13,6 @@ class UserRepository {
   }
 
   insertUser({ forename, surname }) {
-    console.log(forename, surname, { forename, surname });
     return this.connection("user").insert({ forename, surname });
   }
 

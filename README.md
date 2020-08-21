@@ -9,6 +9,20 @@ In order to run the application you simply need to run the following command:
 $ npm run-script start
 ```
 
+| Endpoint              | Method | Description                                           |
+| --------------------- | ------ | ----------------------------------------------------- |
+| /users?page=:page     | GET    | Return a page of users. **The page arg is optional.** |
+| /users/:id            | GET    | Return a specific user.                               |
+| /users                | POST   | Create a new user.                                    | 
+
+## Docker 
+In order to run the application with Docker, you'll need to run the following command(s):
+
+```bash 
+$ docker build -t node-demo .
+$ docker run -p 80:3000 node-demo
+```
+
 ## Migrations
 
 In order to run the database migrations, you'll need to run the following command:

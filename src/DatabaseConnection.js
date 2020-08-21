@@ -3,7 +3,6 @@ class DatabaseConnection {
     const knex = require("knex");
     const configuration = require("../knexfile");
     const config = configuration[process.env["ENV"]];
-    console.log(process.env["ENV"], config);
     this.connection = knex(config);
   }
 

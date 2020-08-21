@@ -17,12 +17,12 @@ class UserController {
         header = "text/plain";
         data = "No users found on the page " + page;
         status = 404;
+      } else {
+        data = {
+          results: await this.service.getUsersByPage(page),
+          pages: numberOfPages,
+        };
       }
-
-      data = {
-        results: await this.service.getUsersByPage(page),
-        pages: numberOfPages,
-      };
     } catch (exception) {
       console.error(exception);
       status = 400;
