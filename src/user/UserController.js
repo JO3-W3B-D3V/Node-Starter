@@ -4,7 +4,7 @@ class UserController {
     this.service = new UserService();
   }
 
-  async getUsers(request, response, next) {
+  async getUsers(request, response) {
     let header = "application/json";
     let status = 200;
     let data = null;
@@ -35,7 +35,7 @@ class UserController {
     response.send(data);
   }
 
-  async getUser(request, response, next) {
+  async getUser(request, response) {
     let header = "application/json";
     let status = 200;
     let data = null;
@@ -61,7 +61,7 @@ class UserController {
     response.send(data);
   }
 
-  async createUser(request, response, next) {
+  async createUser(request, response) {
     let header = "application/json";
     let status = 200;
     let data = null;
