@@ -22,7 +22,6 @@ module.exports = {
     eqeqeq: ['error', 'always'],
     semi: [2, 'never'],
     'default-case': 2,
-    'template-curly-spacing': 0, // Prettier.
     'newline-before-return': 'error',
     'no-use-before-define': [
       'error',
@@ -40,11 +39,8 @@ module.exports = {
     'no-unused-vars': 1,
     yoda: ['error', 'never', { exceptRange: true }],
     'import/prefer-default-export': 0,
-
-    // no longer defined
-    'jsx-a11y/href-no-hash': 'off',
-    'no-console': 0, // we are enabling this in the scripts
-    'no-debugger': 0, // we are enabling this in the scripts
+    'no-console': 0,
+    'no-debugger': 0,
     'no-plusplus': ['error', { allowForLoopAfterthoughts: true }],
     quotes: ['error', 'single', { avoidEscape: true }],
   },
