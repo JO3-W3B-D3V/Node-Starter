@@ -1,4 +1,5 @@
 const UserClientError = require('./UserClientError')
+const isNull = require('../libs/isNull')
 
 class UserValidation {
   validateUserObject(user) {
@@ -6,14 +7,14 @@ class UserValidation {
     const MAXIMUM_NAME_LENGTH = 50 // Just a random number.
 
     // User object validation.
-    if (user === null || user === undefined) {
+    if (isNull(user)) {
       throw new UserClientError('The provided user object is null')
     } else if (typeof user !== 'object') {
       throw new UserClientError('The wrong data type was provided for the user object')
     }
 
     // Forename validation.
-    if (user.forename === null || user.forename === undefined) {
+    if (isNull(user.forename)) {
       throw new UserClientError('The provided forename is null')
     } else if (typeof user.forename !== 'string') {
       console.log(user.forename, typeof user.forename)
@@ -25,7 +26,7 @@ class UserValidation {
     }
 
     // Surname validation.
-    if (user.surname === null || user.surname === undefined) {
+    if (isNull(user.surname)) {
       throw new UserClientError('The provided surname is null')
     } else if (typeof user.surname !== 'string') {
       throw new UserClientError('The wrong data type was provided for the user surname')
@@ -37,7 +38,7 @@ class UserValidation {
   }
 
   idValidation(id) {
-    if (id === null || id === undefined) {
+    if (isNull(id)) {
       throw new UserClientError('The provided id cannot be null')
     } else if (id <= 0) {
       throw new UserClientError('The provided id must be greater than 0')
@@ -47,7 +48,7 @@ class UserValidation {
   }
 
   pageValidation(page) {
-    if (page === null || page === undefined) {
+    if (isNull(page)) {
       throw new UserClientError('The provided page number cannot be null')
     } else if (page <= 0) {
       throw new UserClientError('The provided page number must be greater than 0')

@@ -92,7 +92,7 @@ class UserController {
       this.verifyJsonRequest(contentType)
       const user = await this.service.getUserById(id)
 
-      if (user !== null && user !== undefined) {
+      if (!isNull(user)) {
         await this.service.updateUser(request.body)
         this.data = { forename: request.body.forename, surname: request.body.surname }
       } else {
