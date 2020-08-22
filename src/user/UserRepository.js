@@ -27,6 +27,18 @@ class UserRepository {
 
     return Math.ceil(max.count / UserRepository.PER_PAGE)
   }
+
+  updateUser(user) {
+    const forename = user.forename
+    const surname = user.surname
+    const id = user.id
+
+    return this.connection('user').where('id', id).update({ forename, surname })
+  }
+
+  deleteUserById(id) {
+    return this.connection('user').where('id', id).delete()
+  }
 }
 
 module.exports = UserRepository

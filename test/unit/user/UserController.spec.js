@@ -119,11 +119,71 @@ describe('UserController tests', () => {
     }
 
     request(Application.init())
+      .get('/users')
+      .then((response) => {
+        testUser.id = response.body.results[0].id
+        expect(response.statusCode).toBe(200)
+
+        request(Application.init())
+          .put('/users')
+          .set('content-type', 'application/json')
+          .send(JSON.stringify(testUser))
+          .then((r) => {
+            expect(r.statusCode).toBe(200)
+            done()
+          })
+      })
+  })
+
+  test('It should return a 404 when trying to update invalid user id', (done) => {
+    process.env['ENV'] = 'test'
+    const testUser = {
+      id: 9999999999999999999999999999,
+      forename: 'Unit',
+      surname: 'Testing123',
+    }
+
+    request(Application.init())
       .put('/users')
       .set('content-type', 'application/json')
       .send(JSON.stringify(testUser))
       .then((response) => {
-        expect(response.statusCode).toBe(501)
+        expect(response.statusCode).toBe(404)
+        done()
+      })
+  })
+
+  test('It should return a 400 when trying to update invalid user id', (done) => {
+    process.env['ENV'] = 'test'
+    const testUser = {
+      id: null,
+      forename: 'Unit',
+      surname: 'Testing123',
+    }
+
+    request(Application.init())
+      .put('/users')
+      .set('content-type', 'application/json')
+      .send(JSON.stringify(testUser))
+      .then((response) => {
+        expect(response.statusCode).toBe(400)
+        done()
+      })
+  })
+
+  test('It should return a 415 when trying to update invalid user content type header', (done) => {
+    process.env['ENV'] = 'test'
+    const testUser = {
+      id: 1,
+      forename: 'Unit',
+      surname: 'Testing123',
+    }
+
+    request(Application.init())
+      .put('/users')
+      .send(JSON.stringify(testUser))
+      .then((response) => {
+        expect(response.statusCode).toBe(415)
         done()
       })
   })
@@ -132,9 +192,37 @@ describe('UserController tests', () => {
     process.env['ENV'] = 'test'
 
     request(Application.init())
-      .delete('/users/1')
+      .get('/users')
       .then((response) => {
-        expect(response.statusCode).toBe(501)
+        expect(response.statusCode).toBe(200)
+
+        request(Application.init())
+          .delete(`/users/${response.body.results[0].id}`)
+          .then((r) => {
+            expect(r.statusCode).toBe(204)
+            done()
+          })
+      })
+  })
+
+  test('It should return a 404 when delete a user with an invalid id', (done) => {
+    process.env['ENV'] = 'test'
+
+    request(Application.init())
+      .delete('/users/999999999999999999999999999999')
+      .then((response) => {
+        expect(response.statusCode).toBe(404)
+        done()
+      })
+  })
+
+  test('It should return a 400 when delete a user with an invalid id', (done) => {
+    process.env['ENV'] = 'test'
+
+    request(Application.init())
+      .delete('/users/-9090')
+      .then((response) => {
+        expect(response.statusCode).toBe(400)
         done()
       })
   })

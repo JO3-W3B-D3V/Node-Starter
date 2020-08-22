@@ -13,7 +13,7 @@ describe('UserClientError tests', () => {
   })
 
   test('It should have the message "Test message"', () => {
-    let error = new UserClientError('Test message')
+    const error = new UserClientError('Test message')
     expect(error.message).toBe('Test message')
   })
 })
