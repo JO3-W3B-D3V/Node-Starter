@@ -1,5 +1,6 @@
 module.exports = {
   root: true,
+  extends: ['eslint:recommended'],
   parser: 'babel-eslint',
   env: {
     es6: true,
@@ -43,6 +44,7 @@ module.exports = {
     'no-debugger': 0,
     'no-plusplus': ['error', { allowForLoopAfterthoughts: true }],
     quotes: ['error', 'single', { avoidEscape: true }],
+    'max-len': ['error', { code: 140 }],
   },
   settings: {
     polyfills: ['promises'],

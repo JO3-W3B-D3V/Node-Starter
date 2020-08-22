@@ -62,8 +62,14 @@ describe('UserController tests', () => {
 
   test('It should return a 415 for no content type header', (done) => {
     process.env['ENV'] = 'test'
+    const testUser = {
+      forename: 'Unit',
+      surname: 'Test',
+    }
+
     request(Application.init())
       .post('/users')
+      .send(JSON.stringify(testUser))
       .then((response) => {
         expect(response.statusCode).toBe(415)
         done()
@@ -131,5 +137,28 @@ describe('UserController tests', () => {
         expect(response.statusCode).toBe(501)
         done()
       })
+  })
+
+  test('It should run next when running handleError', () => {
+    process.env['ENV'] = 'test'
+    Application.init()
+    const UserController = require('../../../src/user/UserController')
+    const controller = new UserController()
+    const exception = new Error('This is a test...')
+    let handled = false
+
+    const mockNext = (e) => {
+      expect(e).toBe(exception)
+      handled = true
+    }
+
+    const mockResponse = {
+      setHeader: () => {},
+      status: () => {},
+      send: () => {},
+    }
+
+    controller.handleError(exception, false, mockNext, mockResponse)
+    expect(handled).toBe(true)
   })
 })

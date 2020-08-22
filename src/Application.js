@@ -70,12 +70,7 @@ class Application {
     const code = 500
 
     const isErrorStatusValid = () => {
-      return (
-        err !== null &&
-        err !== undefined &&
-        err.status !== null &&
-        err.status !== undefined
-      )
+      return err !== null && err !== undefined && err.status !== null && err.status !== undefined
     }
 
     return isErrorStatusValid() ? err.status : code

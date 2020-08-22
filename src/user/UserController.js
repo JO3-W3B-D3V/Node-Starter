@@ -1,10 +1,12 @@
+const UserClientError = require('./UserClientError')
+
 class UserController {
   constructor() {
     const UserService = require('./UserService')
     this.service = new UserService()
   }
 
-  async getUsers(request, response) {
+  async getUsers(request, response, next) {
     let header = 'application/json'
     let status = 200
     let data = null
@@ -15,7 +17,11 @@ class UserController {
       }
 
       const page = isNoPagePresent() ? 1 : request.query.page
-      const numberOfPages = await this.service.getTotalNumberOfPages()
+      let numberOfPages = 0
+
+      if (page > 0 && !isNaN(page)) {
+        numberOfPages = await this.service.getTotalNumberOfPages()
+      }
 
       if (page > numberOfPages) {
         header = 'text/plain'
@@ -28,10 +34,9 @@ class UserController {
         }
       }
     } catch (exception) {
-      console.error(exception)
-      status = 400
-      header = 'text/plain'
-      data = 'Invalid parameters provided'
+      const expected = exception instanceof UserClientError
+
+      return this.handleError(exception, expected, next, response)
     }
 
     response.setHeader('Content-Type', header)
@@ -39,7 +44,7 @@ class UserController {
     response.send(data)
   }
 
-  async getUser(request, response) {
+  async getUser(request, response, next) {
     let header = 'application/json'
     let status = 200
     let data = null
@@ -54,10 +59,9 @@ class UserController {
         status = 404
       }
     } catch (exception) {
-      console.error(exception)
-      status = 400
-      header = 'text/plain'
-      data = 'Invalid parameters provided'
+      const expected = exception instanceof UserClientError
+
+      return this.handleError(exception, expected, next, response)
     }
 
     response.setHeader('Content-Type', header)
@@ -65,7 +69,7 @@ class UserController {
     response.send(data)
   }
 
-  async createUser(request, response) {
+  async createUser(request, response, next) {
     let header = 'application/json'
     let status = 200
     let data = null
@@ -87,11 +91,10 @@ class UserController {
       status = 201
       header = 'text/plain'
     } catch (exception) {
-      console.error(exception)
-      if (!requestInvalid) {
-        status = 400
-        header = 'text/plain'
-        data = 'Invalid parameters provided'
+      if (requestInvalid) {
+        return this.handleError(exception, requestInvalid, next, response, { header, status, data })
+      } else {
+        return this.handleError(exception, exception instanceof UserClientError, next, response)
       }
     }
 
@@ -110,6 +113,18 @@ class UserController {
     response.setHeader('Content-Type', 'text/plain')
     response.status(501)
     response.send('Not implemented')
+  }
+
+  handleError(exception, expected, next, response, params = { status: 400, header: 'text/plain', data: 'Invalid parameters provided' }) {
+    console.error(exception)
+
+    if (!expected) {
+      next(exception)
+    } else {
+      response.setHeader('Content-Type', params.header)
+      response.status(params.status)
+      response.send(params.data)
+    }
   }
 }
 
