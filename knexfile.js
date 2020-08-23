@@ -7,6 +7,9 @@ module.exports = {
     migrations: {
       directory: './resources/migrations',
     },
+    seeds: {
+      directory: './resources/seeds',
+    },
     useNullAsDefault: true,
   },
 
@@ -17,6 +20,9 @@ module.exports = {
     },
     migrations: {
       directory: './resources/migrations',
+    },
+    seeds: {
+      directory: './resources/seeds',
     },
     useNullAsDefault: true,
   },

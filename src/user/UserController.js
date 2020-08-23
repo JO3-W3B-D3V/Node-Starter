@@ -88,11 +88,24 @@ class UserController {
   async updateUser(request, response, next) {
     try {
       const contentType = request.headers['content-type']
-      const id = !isNull(request.body.id) ? request.body.id : 0
+      const getId = () => {
+        if (!isNull(request.params.id)) {
+          return request.params.id
+        } else if (!isNull(request.body.id)) {
+          return request.body.id
+        }
+
+        return -1
+      }
+
+      const id = getId()
       this.verifyJsonRequest(contentType)
       const user = await this.service.getUserById(id)
+      console.log(user)
+      console.log(id)
 
       if (!isNull(user)) {
+        request.body.id = id // Just in the event it was /users/:id
         await this.service.updateUser(request.body)
         this.data = { forename: request.body.forename, surname: request.body.surname }
       } else {
@@ -166,6 +179,11 @@ class UserController {
     response.setHeader('Content-Type', this.header)
     response.status(this.status)
     response.send(this.data)
+
+    // Reset the calass properties
+    this.status = 200
+    this.header = 'application/json'
+    this.data = null
   }
 }
 

@@ -6,7 +6,8 @@
     "start": "node ./src/bin/www",
     "test": "npx jest --collect-coverage --silent",
     "test:debug": "npx jest --collect-coverage",
-    "lint": "eslint ."
+    "lint": "eslint .",
+    "security": "npx snyk test"
   },
   "dependencies": {
     "cookie-parser": "~1.4.4",
@@ -23,6 +24,7 @@
     "eslint": "^7.7.0",
     "eslint-plugin-jest": "^23.20.0",
     "jest": "^26.4.1",
+    "snyk": "^1.381.2",
     "sqlite3": "^5.0.0",
     "superagent": "^6.0.0",
     "supertest": "^4.0.2",

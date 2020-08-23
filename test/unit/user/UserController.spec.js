@@ -135,6 +135,30 @@ describe('UserController tests', () => {
       })
   })
 
+  test('It should update a user', (done) => {
+    process.env['ENV'] = 'test'
+    const testUser = {
+      forename: 'Unit',
+      surname: 'Testing123',
+    }
+
+    request(Application.init())
+      .get('/users')
+      .then((response) => {
+        const id = response.body.results[0].id
+        expect(response.statusCode).toBe(200)
+
+        request(Application.init())
+          .put(`/users/${id}`)
+          .set('content-type', 'application/json')
+          .send(JSON.stringify(testUser))
+          .then((r) => {
+            expect(r.statusCode).toBe(200)
+            done()
+          })
+      })
+  })
+
   test('It should return a 404 when trying to update invalid user id', (done) => {
     process.env['ENV'] = 'test'
     const testUser = {

@@ -5,12 +5,12 @@ class Application {
     const router = express.Router()
 
     Application.applyEnvironmentVars()
+    Application.applyHeaders(app)
     Application.applyOtherConfig(app, express)
     Application.setupLogger(app)
     Application.setupCookieParsing(app)
     Application.applyRouting(app, router)
     Application.errorHandling(app)
-    Application.applyHeaders(app)
 
     return app
   }
@@ -40,8 +40,10 @@ class Application {
   }
 
   static errorHandling(app) {
-    const createError = require('http-errors')
-    app.use((req, res, next) => next(createError(404)))
+    app.use((req, res, next) => {
+      const createError = require('http-errors')
+      next(createError(404))
+    })
 
     // eslint-disable-next-line  no-unused-vars
     app.use((err, req, res, next) => {
@@ -49,7 +51,7 @@ class Application {
       console.error(err)
       res.status(Application.getErrorStatusCode(err))
       res.setHeader('Content-Type', 'text/plain')
-      res.end('Internal server error')
+      res.end(err.message)
     })
   }
 
@@ -62,8 +64,8 @@ class Application {
     }
 
     app.use(cors(corsConfig))
-    app.disable('X-Powered-By')
-    app.disable('Server')
+    app.disable('x-powered-by')
+    app.disable('server')
   }
 
   static getErrorStatusCode(err) {
