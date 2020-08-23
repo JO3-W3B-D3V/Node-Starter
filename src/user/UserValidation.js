@@ -5,7 +5,7 @@ class UserValidation {
   validateUserObject(user) {
     const MINIMUM_NAME_LENGTH = 2 // Po, Jo, etc.
     const MAXIMUM_NAME_LENGTH = 50 // Just a random number.
-    const FULL_NAME_REGEX = /^(([A-Za-z]+[\-\']?)*([A-Za-z]+)?\s)+([A-Za-z]+[\-\']?)*([A-Za-z]+)?$/
+    const FULL_NAME_REGEX = /^(([A-Za-z]+[-']?)*([A-Za-z]+)?\s)+([A-Za-z]+[-']?)*([A-Za-z]+)?$/
     const PART_NAME_REGEX = /^[a-zA-Z'-]{2,50}$$/
 
     // User object validation.

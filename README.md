@@ -5,9 +5,10 @@ uses Jest for the unit testing & technologies such as Express & Knex.
 
 ## Run the Application
 
-In order to run the application you simply need to run the following command:
+In order to run the application you simply need to run the following command(s):
 
 ```bash
+$ npm local:setup
 $ npm run-script start
 ```
 

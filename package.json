@@ -6,7 +6,7 @@
     "start": "node ./src/bin/www",
     "test": "npx jest --collect-coverage --silent",
     "quality": "npm run sonar && npm run security && npm run lint",
-    "local:setup": "npm run migrations && npm run migrations:test && npm run seeds && npm run seeds:test && npx snyk auth",
+    "local:setup": "npm i && npm run migrations && npm run migrations:test && npm run seeds && npm run seeds:test && npx snyk auth",
     "test:debug": "npx jest --collect-coverage",
     "lint": "eslint .",
     "security": "npm run snyk && npm run retire",
