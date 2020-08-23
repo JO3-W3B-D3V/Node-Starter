@@ -5,14 +5,16 @@
   "scripts": {
     "start": "node ./src/bin/www",
     "test": "npx jest --collect-coverage --silent",
+    "quality": "npm run sonar && npm run security && npm run lint",
+    "local:setup": "npm run migrations && npm run migrations:test && npm run seeds && npm run seeds:test && npx snyk auth",
     "test:debug": "npx jest --collect-coverage",
     "lint": "eslint .",
     "security": "npx snyk test",
-    "local:setup": "npm run migrations && npm run migrations:test && npm run seeds && npm run seeds:test && npx snyk auth",
     "migrations": "npx knex migrate:latest",
     "migrations:test": "npx knex migrate:latest --env test",
     "seeds": "npx knex seed:run",
-    "seeds:test": "npx knex seed:run --env test"
+    "seeds:test": "npx knex seed:run --env test",
+    "sonar": "sonarlint --src 'src/**' --tests 'test/**'"
   },
   "dependencies": {
     "cookie-parser": "~1.4.4",
@@ -30,6 +32,7 @@
     "eslint-plugin-jest": "^23.20.0",
     "jest": "^26.4.1",
     "snyk": "^1.381.2",
+    "sonarlint": "^1.1.0",
     "sqlite3": "^5.0.0",
     "superagent": "^6.0.0",
     "supertest": "^4.0.2",
