@@ -1,20 +1,18 @@
 const UserClientError = require('./UserClientError')
-const isNull = require('../libs/isNull')
 const AbstractController = require('../AbstractController')
+const isNull = require('../libs/isNull')
+const createError = require('http-errors')
 
 class UserController extends AbstractController {
   constructor() {
     super()
     const UserService = require('./UserService')
     this.service = new UserService()
-
-    this.header = 'application/json'
-    this.status = 200
-    this.data = null
-    this.requestInvalid = false
   }
 
   async page(request, response, next) {
+    let data = null
+
     try {
       let page = 1
       let numberOfPages = 0
@@ -28,22 +26,20 @@ class UserController extends AbstractController {
       }
 
       if (page > numberOfPages) {
-        this.header = 'text/plain'
-        this.data = `No users found on the page ${page}`
-        this.status = 404
+        this.notFound(page, `No users found on the page ${page}`)
       } else {
-        this.data = {
+        data = {
           results: await this.service.getUsersByPage(page),
           pages: numberOfPages,
         }
       }
     } catch (exception) {
-      const expected = exception instanceof UserClientError
-
-      return this.handleError(exception, expected, next, response)
+      return next(createError(exception.status))
     }
 
-    this.sendResponse(response)
+    response.setHeader('Content-Type', 'application/json')
+    response.status(200)
+    response.send(data)
   }
 
   async create(request, response, next) {
@@ -54,40 +50,36 @@ class UserController extends AbstractController {
       this.verifyJsonRequest(contentType)
       await this.service.createUser(requestBody)
     } catch (exception) {
-      if (this.requestInvalid) {
-        const params = { header: this.header, status: this.status, data: this.data }
-
-        return this.handleError(exception, this.requestInvalid, next, response, params)
-      } else {
-        return this.handleError(exception, exception instanceof UserClientError, next, response)
-      }
+      return next(createError(exception.status))
     }
 
-    this.status = 201
-    this.header = 'text/plain'
-    this.sendResponse(response)
+    response.setHeader('Content-Type', 'text/plain')
+    response.status(201)
+    response.send()
   }
 
   async read(request, response, next) {
+    let data = null
+
     try {
       const id = request.params.id
-      this.data = await this.service.getUserById(id)
+      data = await this.service.getUserById(id)
 
-      if (isNull(this.data)) {
-        this.header = 'text/plain'
-        this.data = `No user found with the id of ${id}`
-        this.status = 404
+      if (isNull(data)) {
+        this.notFound(id)
       }
     } catch (exception) {
-      const expected = exception instanceof UserClientError
-
-      return this.handleError(exception, expected, next, response)
+      return next(createError(exception.status))
     }
 
-    this.sendResponse(response)
+    response.setHeader('Content-Type', 'application/json')
+    response.status(200)
+    response.send(data)
   }
 
   async update(request, response, next) {
+    let data = null
+
     try {
       const contentType = request.headers['content-type']
       const getId = () => {
@@ -95,35 +87,29 @@ class UserController extends AbstractController {
           return request.params.id
         } else if (!isNull(request.body.id)) {
           return request.body.id
+        } else {
+          return -1
         }
-
-        return -1
       }
 
       const id = getId()
       this.verifyJsonRequest(contentType)
       const user = await this.service.getUserById(id)
-      console.log(user)
-      console.log(id)
 
       if (!isNull(user)) {
         request.body.id = id // Just in the event it was /users/:id
         await this.service.updateUser(request.body)
-        this.data = { forename: request.body.forename, surname: request.body.surname }
+        data = { forename: request.body.forename, surname: request.body.surname }
       } else {
-        this.noUserFound(id)
+        this.notFound(id)
       }
     } catch (exception) {
-      if (this.requestInvalid) {
-        const params = { header: this.header, status: this.status, data: this.data }
-
-        return this.handleError(exception, this.requestInvalid, next, response, params)
-      } else {
-        return this.handleError(exception, exception instanceof UserClientError, next, response)
-      }
+      return next(createError(exception.status))
     }
 
-    this.sendResponse(response)
+    response.setHeader('Content-Type', 'application/json')
+    response.status(200)
+    response.send(data)
   }
 
   async delete(request, response, next) {
@@ -132,60 +118,31 @@ class UserController extends AbstractController {
       const user = await this.service.getUserById(id)
 
       if (isNull(user)) {
-        this.noUserFound(id)
+        this.notFound(id)
       } else {
         await this.service.deleteUserById(id)
-        this.status = 204
-        this.header = 'text/plain'
       }
     } catch (exception) {
-      return this.handleError(exception, exception instanceof UserClientError, next, response)
+      return next(createError(exception.status))
     }
 
-    this.sendResponse(response)
-  }
-
-  defaultErrorParams() {
-    return { status: 400, header: 'text/plain', data: 'Invalid parameters provided' }
-  }
-
-  handleError(exception, expected, next, response, params = this.defaultErrorParams()) {
-    console.error(exception)
-
-    if (!expected) {
-      next(exception)
-    } else {
-      response.setHeader('Content-Type', params.header)
-      response.status(params.status)
-      response.send(params.data)
-    }
+    response.setHeader('Content-Type', 'text/plain')
+    response.status(204)
+    response.send()
   }
 
   verifyJsonRequest(contentType) {
     if (contentType !== 'application/json') {
-      this.data = 'Unsupported media type'
-      this.status = 415
-      this.header = 'text/plain'
-      this.requestInvalid = true
-      throw new Error(this.data)
+      throw new UserClientError('Unsupported media type', 415)
     }
   }
 
-  noUserFound(id) {
-    this.header = 'text/plain'
-    this.status = 404
-    this.data = `No user found with the id of ${id}`
-  }
-
-  sendResponse(response) {
-    response.setHeader('Content-Type', this.header)
-    response.status(this.status)
-    response.send(this.data)
-
-    // Reset the calass properties
-    this.status = 200
-    this.header = 'application/json'
-    this.data = null
+  notFound(id, msg) {
+    if (!isNull(msg)) {
+      throw new UserClientError(msg, 404)
+    } else {
+      throw new UserClientError(`No user found with the id of ${id}`, 404)
+    }
   }
 }
 

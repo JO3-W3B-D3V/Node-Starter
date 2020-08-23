@@ -1,8 +1,8 @@
 class UserClientError extends Error {
-  constructor(msg) {
-    const getPrintableMessage = () => {
-      const isNull = require('../libs/isNull')
+  constructor(msg, status) {
+    const isNull = require('../libs/isNull')
 
+    const getPrintableMessage = () => {
       if (isNull(msg)) {
         return 'Invalid parameters provided'
       } else {
@@ -11,6 +11,12 @@ class UserClientError extends Error {
     }
 
     super(getPrintableMessage())
+
+    if (isNull(status)) {
+      this.status = 400
+    } else {
+      this.status = status
+    }
   }
 }
 

@@ -250,27 +250,4 @@ describe('UserController tests', () => {
         done()
       })
   })
-
-  test('It should run next when running handleError', () => {
-    process.env['ENV'] = 'test'
-    Application.init()
-    const UserController = require('../../../src/user/UserController')
-    const controller = new UserController()
-    const exception = new Error('This is a test...')
-    let handled = false
-
-    const mockNext = (e) => {
-      expect(e).toBe(exception)
-      handled = true
-    }
-
-    const mockResponse = {
-      setHeader: () => {},
-      status: () => {},
-      send: () => {},
-    }
-
-    controller.handleError(exception, false, mockNext, mockResponse)
-    expect(handled).toBe(true)
-  })
 })
