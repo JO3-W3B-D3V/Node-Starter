@@ -36,7 +36,7 @@ class AbstractController {
     if (isNull(contentType)) {
       msg = `${startOfMessage} no content type header was provided, expected ${expected}`
     } else if (contentType !== 'application/json') {
-      msg = `${startOfMessage} the content type header was ${contentType}, expected ${expected}`
+      msg = `${startOfMessage} the provided content type header was ${contentType}, expected ${expected}`
     }
 
     if (!isNull(msg)) {
