@@ -70,10 +70,8 @@ class Application {
 
   static getErrorStatusCode(err) {
     const code = 500
-
-    const isErrorStatusValid = () => {
-      return err !== null && err !== undefined && err.status !== null && err.status !== undefined
-    }
+    const isNull = require('./libs/isNull')
+    const isErrorStatusValid = () => !isNull(err) && !isNull(err.status)
 
     return isErrorStatusValid() ? err.status : code
   }
