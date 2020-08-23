@@ -6,12 +6,12 @@
     "start": "node ./src/bin/www",
     "test": "npx jest --collect-coverage --silent",
     "quality": "npm run sonar && npm run security && npm run lint",
-    "local:setup": "npm i && npm run migrations && npm run migrations:test && npm run seeds && npm run seeds:test && npx snyk auth",
+    "local:setup": "npm install && npm run migrations && npm run migrations:test && npm run seeds && npm run seeds:test && npx snyk auth",
     "test:debug": "npx jest --collect-coverage",
     "lint": "eslint .",
     "security": "npm run snyk && npm run retire",
     "snyk": "npx snyk test",
-    "retire": "npx retire  --outputformat depcheck --outputpath depcheck.xml --ignorefile .retireignore.json",
+    "retire": "npx retire --outputformat depcheck --outputpath depcheck.xml --ignorefile .retireignore.json",
     "migrations": "npx knex migrate:latest",
     "migrations:test": "npx knex migrate:latest --env test",
     "seeds": "npx knex seed:run",
@@ -57,6 +57,14 @@
       "html",
       "lcov",
       "text"
-    ]
+    ],
+    "coverageThreshold": {
+      "global": {
+        "branches": 100,
+        "functions": 100,
+        "lines": 95,
+        "statements": 95
+      }
+    }
   }
 }
