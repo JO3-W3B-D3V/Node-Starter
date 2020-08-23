@@ -31,8 +31,7 @@ class UserController extends AbstractController {
   async create(request, response, next) {
     try {
       const requestBody = request.body
-      const contentType = request.headers['content-type']
-      this.verifyJsonRequest(contentType)
+      this.verifyJsonRequest(request.headers['content-type'])
       await this.service.createUser(requestBody)
 
       response.setHeader('Content-Type', 'text/plain')
@@ -62,10 +61,9 @@ class UserController extends AbstractController {
 
   async update(request, response, next) {
     try {
-      const contentType = request.headers['content-type']
       const getId = (r) => (!isNull(r.params.id) ? r.params.id : !isNull(r.body.id) ? r.body.id : -1)
       const id = getId(request)
-      this.verifyJsonRequest(contentType)
+      this.verifyJsonRequest(request.headers['content-type'])
 
       if (!isNull(await this.service.getUserById(id))) {
         request.body.id = id // Just in the event it was /users/:id
@@ -91,18 +89,18 @@ class UserController extends AbstractController {
       } else {
         await this.service.deleteUserById(id)
       }
+
+      response.setHeader('Content-Type', 'text/plain')
+      response.status(204)
+      response.send()
     } catch (exception) {
       return next(createError(exception.status))
     }
-
-    response.setHeader('Content-Type', 'text/plain')
-    response.status(204)
-    response.send()
   }
 
   verifyJsonRequest(contentType) {
     if (contentType !== 'application/json') {
-      throw new UserClientError('Unsupported media type', 415)
+      throw new UserClientError(`Unsupported media type, the content type header was ${contentType}`, 415)
     }
   }
 
