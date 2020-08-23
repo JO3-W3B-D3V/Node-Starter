@@ -11,7 +11,7 @@
     "lint": "eslint .",
     "security": "npm run snyk && npm run retire",
     "snyk": "npx snyk test",
-    "retire": "npx retire --exitwith 0 --outputformat depcheck --outputpath depcheck.xml --ignorefile .retireignore.json",
+    "retire": "npx retire  --outputformat depcheck --outputpath depcheck.xml --ignorefile .retireignore.json",
     "migrations": "npx knex migrate:latest",
     "migrations:test": "npx knex migrate:latest --env test",
     "seeds": "npx knex seed:run",

@@ -77,6 +77,15 @@ You can then scan the dependencies for vulnerabilities via the following command
 $ npx snyk test
 ```
 
+## General Quality
+
+Through the use of tools such as Synk, ESLint, SonarLint, etc. You can run some quality
+checks locally, to do so run the following script:
+
+```bash
+$ npm run quality
+```
+
 ## Todo
 
 - Implement a complete & mature CI/CD pipeline.

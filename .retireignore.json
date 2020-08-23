@@ -1,12 +1,7 @@
 [
   {
     "component": "jquery",
-    "identifiers": { "issue": "11974" },
-    "justification": "This isn't all that relevant to this application since it's a back end applicaiton."
-  },
-  {
-    "component": "jquery",
-    "identifiers": { "issue": "2432" },
+    "identifiers": { "CVE": "CVE-2015-9251" },
     "justification": "This isn't all that relevant to this application since it's a back end applicaiton."
   },
   {
