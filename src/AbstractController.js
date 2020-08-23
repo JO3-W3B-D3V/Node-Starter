@@ -29,8 +29,18 @@ class AbstractController {
 
   // General Purpose methods
   verifyJsonRequest(contentType) {
-    if (contentType !== 'application/json') {
-      throw new UserClientError(`Unsupported media type, the content type header was ${contentType}`, 415)
+    const expected = 'application/json'
+    const startOfMessage = 'Unsupported media type,'
+    let msg = null
+
+    if (isNull(contentType)) {
+      msg = `${startOfMessage} no content type header was provided, expected ${expected}`
+    } else if (contentType !== 'application/json') {
+      msg = `${startOfMessage} the content type header was ${contentType}, expected ${expected}`
+    }
+
+    if (!isNull(msg)) {
+      throw new UserClientError(msg, 415)
     }
   }
 
