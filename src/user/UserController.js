@@ -1,8 +1,10 @@
 const UserClientError = require('./UserClientError')
 const isNull = require('../libs/isNull')
+const AbstractController = require('../AbstractController')
 
-class UserController {
+class UserController extends AbstractController {
   constructor() {
+    super()
     const UserService = require('./UserService')
     this.service = new UserService()
 
@@ -12,7 +14,7 @@ class UserController {
     this.requestInvalid = false
   }
 
-  async getUsers(request, response, next) {
+  async page(request, response, next) {
     try {
       let page = 1
       let numberOfPages = 0
@@ -44,26 +46,7 @@ class UserController {
     this.sendResponse(response)
   }
 
-  async getUser(request, response, next) {
-    try {
-      const id = request.params.id
-      this.data = await this.service.getUserById(id)
-
-      if (isNull(this.data)) {
-        this.header = 'text/plain'
-        this.data = `No user found with the id of ${id}`
-        this.status = 404
-      }
-    } catch (exception) {
-      const expected = exception instanceof UserClientError
-
-      return this.handleError(exception, expected, next, response)
-    }
-
-    this.sendResponse(response)
-  }
-
-  async createUser(request, response, next) {
+  async create(request, response, next) {
     try {
       const requestBody = request.body
       const contentType = request.headers['content-type']
@@ -85,7 +68,26 @@ class UserController {
     this.sendResponse(response)
   }
 
-  async updateUser(request, response, next) {
+  async read(request, response, next) {
+    try {
+      const id = request.params.id
+      this.data = await this.service.getUserById(id)
+
+      if (isNull(this.data)) {
+        this.header = 'text/plain'
+        this.data = `No user found with the id of ${id}`
+        this.status = 404
+      }
+    } catch (exception) {
+      const expected = exception instanceof UserClientError
+
+      return this.handleError(exception, expected, next, response)
+    }
+
+    this.sendResponse(response)
+  }
+
+  async update(request, response, next) {
     try {
       const contentType = request.headers['content-type']
       const getId = () => {
@@ -124,7 +126,7 @@ class UserController {
     this.sendResponse(response)
   }
 
-  async deleteUser(request, response, next) {
+  async delete(request, response, next) {
     try {
       const id = request.params.id
       const user = await this.service.getUserById(id)
