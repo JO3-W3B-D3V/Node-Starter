@@ -1,6 +1,5 @@
-const UserClientError = require('./UserClientError')
-const AbstractController = require('../AbstractController')
 const isNull = require('../libs/isNull')
+const AbstractController = require('../AbstractController')
 const createError = require('http-errors')
 
 class UserController extends AbstractController {
@@ -95,20 +94,6 @@ class UserController extends AbstractController {
       response.send()
     } catch (exception) {
       return next(createError(exception.status))
-    }
-  }
-
-  verifyJsonRequest(contentType) {
-    if (contentType !== 'application/json') {
-      throw new UserClientError(`Unsupported media type, the content type header was ${contentType}`, 415)
-    }
-  }
-
-  notFound(id, msg) {
-    if (!isNull(msg)) {
-      throw new UserClientError(msg, 404)
-    } else {
-      throw new UserClientError(`No user found with the id of ${id}`, 404)
     }
   }
 }
