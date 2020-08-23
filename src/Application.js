@@ -16,7 +16,8 @@ class Application {
   }
 
   static applyEnvironmentVars() {
-    require('dotenv').config({ path: `${__dirname}/.env` })
+    const path = require('path').join(__dirname, '..', '.env')
+    require('dotenv').config({ path })
   }
 
   static applyOtherConfig(app, express) {
