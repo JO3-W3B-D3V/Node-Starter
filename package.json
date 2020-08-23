@@ -7,7 +7,12 @@
     "test": "npx jest --collect-coverage --silent",
     "test:debug": "npx jest --collect-coverage",
     "lint": "eslint .",
-    "security": "npx snyk test"
+    "security": "npx snyk test",
+    "local:setup": "npm run migrations && npm run migrations:test && npm run seeds && npm run seeds:test && npx snyk auth",
+    "migrations": "npx knex migrate:latest",
+    "migrations:test": "npx knex migrate:latest --env test",
+    "seeds": "npx knex seed:run",
+    "seeds:test": "npx knex seed:run --env test"
   },
   "dependencies": {
     "cookie-parser": "~1.4.4",

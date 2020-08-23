@@ -37,7 +37,13 @@ In order to run the database migrations, you'll need to run the following comman
 $ npx knex migrate:latest
 $ npx knex seed:run
 $ npx knex migrate:latest --env test
-$ npx knex seed:run --end test
+$ npx knex seed:run --env test
+```
+
+Alternatively you _can_ just run this command:
+
+```bash
+$ npm run-script local:setup
 ```
 
 ## Unit Tests
@@ -62,6 +68,12 @@ command:
 
 ```bash
 $ npx snyk auth
+```
+
+You can then scan the dependencies for vulnerabilities via the following command:
+
+```bash
+$ npx snyk test
 ```
 
 ## Todo
