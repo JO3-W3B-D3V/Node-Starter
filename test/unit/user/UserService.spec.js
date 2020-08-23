@@ -76,10 +76,20 @@ describe('UserService tests', () => {
 
   test('It should throw an exception for a user with a long forename', () => {
     const testUser = {
-      forename:
-        'Jjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjj',
+      forename: 'Jjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjj',
       surname: 'Po',
     }
+    expect(() => service.createUser(testUser)).toThrow(Error)
+  })
+
+  test('It should throw an exception for a user with an invalid forename', () => {
+    const testUser = {
+      forename: "<script>alert('Hello');</script>)",
+      surname: 'Po',
+    }
+    expect(() => service.createUser(testUser)).toThrow(Error)
+
+    testUser.forename = "Jack''"
     expect(() => service.createUser(testUser)).toThrow(Error)
   })
 
@@ -120,6 +130,17 @@ describe('UserService tests', () => {
       forename: 'Joe',
       surname: 'Blogggggggggggggggggggggggggggssssssssssssssssssssssssssssssss',
     }
+    expect(() => service.createUser(testUser)).toThrow(Error)
+  })
+
+  test('It should throw an exception for a user with an invalid surname', () => {
+    const testUser = {
+      forename: 'Joe',
+      surname: "<script>alert('Hello');</script>)",
+    }
+    expect(() => service.createUser(testUser)).toThrow(Error)
+
+    testUser.surname = "O''Conor"
     expect(() => service.createUser(testUser)).toThrow(Error)
   })
 })

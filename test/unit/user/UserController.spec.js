@@ -115,7 +115,7 @@ describe('UserController tests', () => {
     const testUser = {
       id: 1,
       forename: 'Unit',
-      surname: 'Testing123',
+      surname: 'Testing',
     }
 
     request(Application.init())
@@ -135,11 +135,11 @@ describe('UserController tests', () => {
       })
   })
 
-  test('It should update a user', (done) => {
+  test('It should update an exisitng user', (done) => {
     process.env['ENV'] = 'test'
     const testUser = {
       forename: 'Unit',
-      surname: 'Testing123',
+      surname: 'Testing',
     }
 
     request(Application.init())
@@ -164,7 +164,7 @@ describe('UserController tests', () => {
     const testUser = {
       id: 9999999999999999999999999999,
       forename: 'Unit',
-      surname: 'Testing123',
+      surname: 'Testing',
     }
 
     request(Application.init())
@@ -182,7 +182,7 @@ describe('UserController tests', () => {
     const testUser = {
       id: null,
       forename: 'Unit',
-      surname: 'Testing123',
+      surname: 'Testing',
     }
 
     request(Application.init())
@@ -200,7 +200,7 @@ describe('UserController tests', () => {
     const testUser = {
       id: 1,
       forename: 'Unit',
-      surname: 'Testing123',
+      surname: 'Testing',
     }
 
     request(Application.init())

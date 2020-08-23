@@ -1,0 +1,27 @@
+[
+  {
+    "component": "jquery",
+    "identifiers": { "issue": "11974" },
+    "justification": "This isn't all that relevant to this application since it's a back end applicaiton."
+  },
+  {
+    "component": "jquery",
+    "identifiers": { "issue": "2432" },
+    "justification": "This isn't all that relevant to this application since it's a back end applicaiton."
+  },
+  {
+    "component": "jquery",
+    "identifiers": { "CVE": "CVE-2019-11358" },
+    "justification": "This isn't all that relevant to this application since it's a back end applicaiton."
+  },
+  {
+    "component": "jquery",
+    "identifiers": { "CVE": "CVE-2020-11023" },
+    "justification": "This isn't all that relevant to this application since it's a back end applicaiton."
+  },
+  {
+    "component": "jquery",
+    "identifiers": { "CVE": "CVE-2020-11022" },
+    "justification": "This isn't all that relevant to this application since it's a back end applicaiton."
+  }
+]

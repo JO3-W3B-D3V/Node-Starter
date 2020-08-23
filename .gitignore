@@ -3,3 +3,4 @@ lib-cov
 coverage
 *.lcov
 resources/*.sqlite
+depcheck.xml
