@@ -12,30 +12,17 @@ class UserController extends AbstractController {
 
   async page(request, response, next) {
     try {
-      let page = 1
-      let numberOfPages = 0
-      let users = null
+      const pageNumber = !isNull(request.query.page) ? request.query.page : 1
+      const pages = pageNumber > 0 && !isNaN(pageNumber) ? await this.service.getTotalNumberOfPages() : 0
 
-      if (!isNull(request.query.page)) {
-        page = request.query.page
+      if (pageNumber > pages) {
+        this.notFound(pageNumber, `No users found on the page ${pageNumber}`)
       }
 
-      if (page > 0 && !isNaN(page)) {
-        numberOfPages = await this.service.getTotalNumberOfPages()
-      }
-
-      if (page > numberOfPages) {
-        this.notFound(page, `No users found on the page ${page}`)
-      } else {
-        users = {
-          results: await this.service.getUsersByPage(page),
-          pages: numberOfPages,
-        }
-      }
-
+      const results = await this.service.getUsersByPage(pageNumber)
       response.setHeader('Content-Type', 'application/json')
       response.status(200)
-      response.send(users)
+      response.send({ results, pages })
     } catch (exception) {
       return next(createError(exception.status))
     }
