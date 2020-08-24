@@ -74,7 +74,7 @@ class Application {
     const RateLimit = require('express-rate-limit')
     const limiter = new RateLimit({
       windowMs: 5 * 60 * 1000, // 5 Minutes
-      max: 100, // 100 Maximum requests within the 5 minutes, based on the IP
+      max: 1000, // 1000 Maximum requests within the 5 minutes, based on the IP
       delayMs: 0, // Disable a delay
     })
 
