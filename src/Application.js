@@ -5,7 +5,7 @@ class Application {
     const router = express.Router()
 
     Application.applyEnvironmentVars()
-    Application.applyHeaders(app)
+    Application.applySecurityConfig(app)
     Application.applyOtherConfig(app, express)
     Application.setupLogger(app)
     Application.setupCookieParsing(app)
@@ -56,7 +56,7 @@ class Application {
     })
   }
 
-  static applyHeaders(app) {
+  static applySecurityConfig(app) {
     const cors = require('cors')
     const corsConfig = {
       origin: ['http://localhost:3000'],
@@ -67,6 +67,18 @@ class Application {
     app.use(cors(corsConfig))
     app.disable('x-powered-by')
     app.disable('server')
+
+    const helmet = require('helmet')
+    app.use(helmet())
+
+    const RateLimit = require('express-rate-limit')
+    const limiter = new RateLimit({
+      windowMs: 5 * 60 * 1000, // 5 Minutes
+      max: 100, // 100 Maximum requests within the 5 minutes, based on the IP
+      delayMs: 0, // Disable a delay
+    })
+
+    app.use(limiter)
   }
 
   static getErrorStatusCode(err) {
