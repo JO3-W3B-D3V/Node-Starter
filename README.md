@@ -1,37 +1,54 @@
 # Node Starter
-This repository includes some demonstration Node based application that 
+
+This repository includes some demonstration Node based application that
 uses Jest for the unit testing & technologies such as Express & Knex.
 
-## Run the Application 
-In order to run the application you simply need to run the following command:
+## Run the Application
 
-```bash 
+In order to run the application you simply need to run the following command(s):
+
+```bash
+$ npm local:setup
 $ npm run-script start
 ```
 
-| Endpoint              | Method | Description                                           |
-| --------------------- | ------ | ----------------------------------------------------- |
-| /users?page=:page     | GET    | Return a page of users. **The page arg is optional.** |
-| /users/:id            | GET    | Return a specific user.                               |
-| /users                | POST   | Create a new user.                                    | 
+| Endpoint          | Method | Description                                           |
+| ----------------- | ------ | ----------------------------------------------------- |
+| /users?page=:page | GET    | Return a page of users. **The page arg is optional.** |
+| /users            | POST   | Create a new user.                                    |
+| /users            | put    | Update an existing user.                              |
+| /users/:id        | GET    | Return a specific user.                               |
+| /users/:id        | PUT    | Update an existing user.                              |
+| /users/:id        | DELETE | Delete an existing user.                              |
 
-## Docker 
+## Docker
+
 In order to run the application with Docker, you'll need to run the following command(s):
 
-```bash 
+```bash
 $ docker build -t node-demo .
 $ docker run -p 80:3000 node-demo
 ```
 
 ## Migrationa
+
 In order to run the database migrations, you'll need to run the following command(s):
 
 ```bash
 $ npx knex migrate:latest
+$ npx knex seed:run
 $ npx knex migrate:latest --env test
+$ npx knex seed:run --env test
+```
+
+Alternatively you _can_ just run this command:
+
+```bash
+$ npm run-script local:setup
 ```
 
 ## Unit Tests
+
 In order to urn the unit tests, you'll need to run the following command:
 
 ```bash
@@ -40,12 +57,38 @@ $ npm run-script test
 
 If you would like some debugging information, you can also run:
 
-```bash 
+```bash
 $ npm run-script test:debug
+```
+
+## Security
+
+In order to run some security scans, you'll need to use [Snyk](https://snyk.io/).
+This means at some point you'll want to provide credentials, via the use of the following
+command:
+
+```bash
+$ npx snyk auth
+```
+
+You can then scan the dependencies for vulnerabilities via the following command:
+
+```bash
+$ npx snyk test
+```
+
+## General Quality
+
+Through the use of tools such as Synk, ESLint, SonarLint, etc. You can run some quality
+checks locally, to do so run the following script:
+
+```bash
+$ npm run quality
 ```
 
 ## Todo
 
 - Implement a complete & mature CI/CD pipeline.
 - Implement a Dockerfile.
+- Use a number of monitoring technologies, i.e. AppSensor.
 - etc.
