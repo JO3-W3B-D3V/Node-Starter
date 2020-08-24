@@ -3,3 +3,6 @@ test
 node_modules
 coverage
 depcheck.xml
+.eslintignore
+.eslintrc.js
+.retireignore.json
