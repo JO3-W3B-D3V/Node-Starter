@@ -9,7 +9,7 @@
     "local:setup": "npm install && npm run migrations && npm run migrations:test && npm run seeds && npm run seeds:test && npx snyk auth",
     "test:debug": "npx jest --collect-coverage",
     "lint": "eslint .",
-    "security": "npm run snyk && npm run retire",
+    "security": "npm audit && npm run snyk && npm run retire",
     "snyk": "npx snyk test",
     "retire": "npx retire --outputformat depcheck --outputpath depcheck.xml --ignorefile .retireignore.json",
     "migrations": "npx knex migrate:latest",
