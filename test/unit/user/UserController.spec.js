@@ -3,7 +3,7 @@ const Application = require('../../../src/Application')
 
 describe('UserController tests', () => {
   beforeEach(() => {
-    process.env['ENV'] = 'development'
+    process.env['ENV'] = 'test'
   })
 
   test('It should respond with an array of objects', (done) => {
@@ -61,7 +61,6 @@ describe('UserController tests', () => {
   })
 
   test('It should return a 415 for no content type header', (done) => {
-    process.env['ENV'] = 'test'
     const testUser = {
       forename: 'Unit',
       surname: 'Test',
@@ -77,7 +76,6 @@ describe('UserController tests', () => {
   })
 
   test('It should return a 400 due to invalid params', (done) => {
-    process.env['ENV'] = 'test'
     const testUser = {
       forename: 20,
       surname: 'Test',
@@ -94,7 +92,6 @@ describe('UserController tests', () => {
   })
 
   test('It should return allow a user to be created', (done) => {
-    process.env['ENV'] = 'test'
     const testUser = {
       forename: 'Unit',
       surname: 'Test',
@@ -111,7 +108,6 @@ describe('UserController tests', () => {
   })
 
   test('It should update a user', (done) => {
-    process.env['ENV'] = 'test'
     const testUser = {
       id: 1,
       forename: 'Unit',
@@ -136,7 +132,6 @@ describe('UserController tests', () => {
   })
 
   test('It should update an exisitng user', (done) => {
-    process.env['ENV'] = 'test'
     const testUser = {
       forename: 'Unit',
       surname: 'Testing',
@@ -160,7 +155,6 @@ describe('UserController tests', () => {
   })
 
   test('It should return a 404 when trying to update invalid user id', (done) => {
-    process.env['ENV'] = 'test'
     const testUser = {
       id: 9999999999999999999999999999,
       forename: 'Unit',
@@ -178,7 +172,6 @@ describe('UserController tests', () => {
   })
 
   test('It should return a 400 when trying to update invalid user id', (done) => {
-    process.env['ENV'] = 'test'
     const testUser = {
       id: null,
       forename: 'Unit',
@@ -196,7 +189,6 @@ describe('UserController tests', () => {
   })
 
   test('It should return a 415 when trying to update invalid user content type header', (done) => {
-    process.env['ENV'] = 'test'
     const testUser = {
       id: 1,
       forename: 'Unit',
@@ -213,8 +205,6 @@ describe('UserController tests', () => {
   })
 
   test('It should delete a user', (done) => {
-    process.env['ENV'] = 'test'
-
     request(Application.init())
       .get('/users')
       .then((response) => {
@@ -230,8 +220,6 @@ describe('UserController tests', () => {
   })
 
   test('It should return a 404 when delete a user with an invalid id', (done) => {
-    process.env['ENV'] = 'test'
-
     request(Application.init())
       .delete('/users/999999999999999999999999999999')
       .then((response) => {
@@ -241,8 +229,6 @@ describe('UserController tests', () => {
   })
 
   test('It should return a 400 when delete a user with an invalid id', (done) => {
-    process.env['ENV'] = 'test'
-
     request(Application.init())
       .delete('/users/-9090')
       .then((response) => {

@@ -2,6 +2,10 @@ const request = require('supertest')
 const Application = require('../../src/Application')
 
 describe('Application tests', () => {
+  beforeEach(() => {
+    process.env['ENV'] = 'test'
+  })
+
   test('It should hanlde a 404 request', (done) => {
     request(Application.init())
       .get('/fdhsjfhdskjfhkdjsfkjdsk')
