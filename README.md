@@ -11,10 +11,20 @@ uses Jest for the unit testing & technologies such as Express & Knex.
 
 #### VSCode Suggestions (Optional)
 
-- Install the 'Fira Code' font
-- Install 'VSCode-icons' icon theme
+- Install the font family called 'Fira Code'
+- Install the icon theme called 'VSCode-icons'
 - Install the extension called 'Bracket Pair Colorizer 2'
 - Install the extension called 'Code Spell Checker'
+- Install the extension called 'Find Related Files'
+- Install the extension called 'GitLens — Git supercharged'
+- Install the extension called 'Indent Rainbow'
+- Install the extension called 'Path Intellisense'
+- Install the extension called 'Sonar Lint'
+- Install the extension called 'Jest Snippets'
+- Install the extension called 'NPM Intellisense'
+- Install the extension called 'Prettier — Code formatter'
+- Install the extension called 'Version Lens'
+- Install the theme called 'Monokai ST3'
 
 #### Other Suggestions (Optional)
 

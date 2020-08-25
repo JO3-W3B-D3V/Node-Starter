@@ -14,7 +14,7 @@
   "prettier.printWidth": 120,
   "prettier.singleQuote": true,
   "prettier.semi": false,
-  "workbench.colorTheme": "Default Dark+",
+  "workbench.colorTheme": "Monokai Classic",
   "workbench.activityBar.iconClickBehavior": "focus",
   "workbench.activityBar.visible": true,
   "workbench.editor.showTabs": true,
