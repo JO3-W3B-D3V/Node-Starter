@@ -35,7 +35,7 @@ $ npm run-script start
 | ----------------- | ------ | ----------------------------------------------------- |
 | /users?page=:page | GET    | Return a page of users. **The page arg is optional.** |
 | /users            | POST   | Create a new user.                                    |
-| /users            | put    | Update an existing user.                              |
+| /users            | PUT    | Update an existing user.                              |
 | /users/:id        | GET    | Return a specific user.                               |
 | /users/:id        | PUT    | Update an existing user.                              |
 | /users/:id        | DELETE | Delete an existing user.                              |
