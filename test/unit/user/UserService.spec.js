@@ -66,7 +66,7 @@ describe('UserService tests', () => {
     expect(() => service.createUser(testUser)).toThrow(Error)
   })
 
-  test("It should throw an exception for a user with a forname that's just white space", () => {
+  test("It should throw an exception for a user with a forename that's just white space", () => {
     const testUser = {
       forename: '   J ',
       surname: 'Po',
@@ -140,6 +140,7 @@ describe('UserService tests', () => {
     }
     expect(() => service.createUser(testUser)).toThrow(Error)
 
+    // cspell: disable-next-line
     testUser.surname = "O''Conor"
     expect(() => service.createUser(testUser)).toThrow(Error)
   })

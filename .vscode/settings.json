@@ -1,14 +1,28 @@
-{ 
-  "editor.rulers": [
-    120
-  ],
+{
+  "editor.fontFamily": "'Fira Code', Consolas",
+  "editor.lineHeight": 18,
+  "editor.fontWeight": "normal",
+  "editor.fontSize": 12,
+  "editor.letterSpacing": 0.5,
+  "editor.fontLigatures": true,
+  "editor.wordWrap": "wordWrapColumn",
+  "editor.wordWrapColumn": 120,
+  "editor.wrappingIndent": "deepIndent",
+  "editor.renderIndentGuides": true,
+  "editor.minimap.enabled": false,
+  "editor.rulers": [120],
   "prettier.printWidth": 120,
-
   "prettier.singleQuote": true,
   "prettier.semi": false,
+  "workbench.colorTheme": "Default Dark+",
+  "workbench.activityBar.iconClickBehavior": "focus",
+  "workbench.activityBar.visible": true,
+  "workbench.editor.showTabs": true,
+  "workbench.sideBar.location": "left",
+  "workbench.iconTheme": "vscode-icons",
   "[javascript]": {
     "editor.formatOnSave": true,
-    "editor.formatOnPaste": true,
+    "editor.formatOnPaste": true
   },
   "[markdown]": {
     "editor.formatOnSave": true,

@@ -1,7 +1,7 @@
 class DatabaseConnection {
   constructor() {
     const knex = require('knex')
-    const configuration = require('../knexfile')
+    const configuration = require('../knexfile') // cspell: disable-line
     const config = configuration[process.env['ENV']]
     this.connection = knex(config)
   }

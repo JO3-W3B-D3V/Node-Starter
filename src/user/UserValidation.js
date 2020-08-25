@@ -64,7 +64,7 @@ class UserValidation {
     } else if (page <= 0) {
       throw new UserClientError('The provided page number must be greater than 0')
     } else if (isNaN(page)) {
-      throw new UserClientError('The provided page numer is not a valid number')
+      throw new UserClientError('The provided page number is not a valid number')
     }
   }
 }

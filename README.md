@@ -3,6 +3,25 @@
 This repository includes some demonstration Node based application that
 uses Jest for the unit testing & technologies such as Express & Knex.
 
+## Requirements
+
+- Install Node
+- Install Docker
+- Install VSCode
+
+#### VSCode Suggestions (Optional)
+
+- Install the 'Fira Code' font
+- Install 'VSCode-icons' icon theme
+- Install the extension called 'Bracket Pair Colorizer 2'
+- Install the extension called 'Code Spell Checker'
+
+#### Other Suggestions (Optional)
+
+- Install 'Windows Terminal' from the MS store.
+- Install Postman
+- Install Chocolatey
+
 ## Run the Application
 
 In order to run the application you simply need to run the following command(s):
@@ -30,7 +49,7 @@ $ docker build -t node-demo .
 $ docker run -p 80:3000 node-demo
 ```
 
-## Migrationa
+## Migration
 
 In order to run the database migrations, you'll need to run the following command(s):
 

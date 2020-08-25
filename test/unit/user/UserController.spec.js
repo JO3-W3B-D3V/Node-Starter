@@ -131,7 +131,7 @@ describe('UserController tests', () => {
       })
   })
 
-  test('It should update an exisitng user', (done) => {
+  test('It should update an existing user', (done) => {
     const testUser = {
       forename: 'Unit',
       surname: 'Testing',

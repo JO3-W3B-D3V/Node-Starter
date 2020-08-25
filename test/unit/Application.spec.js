@@ -8,7 +8,7 @@ describe('Application tests', () => {
 
   test('It should hanlde a 404 request', (done) => {
     request(Application.init())
-      .get('/fdhsjfhdskjfhkdjsfkjdsk')
+      .get('/fdhsjfhdskjfhkdjsfkjdsk') // cspell: disable-line
       .then((response) => {
         expect(response.statusCode).toBe(404)
         done()
