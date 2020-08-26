@@ -53,7 +53,7 @@ class Application {
       res.status(Application.getErrorStatusCode(err))
       res.setHeader('Content-Type', 'text/plain')
 
-      if (res.status != 500) {
+      if (res.status !== 500) {
         res.end(err.message)
       } else {
         res.end('Internal Server Error')

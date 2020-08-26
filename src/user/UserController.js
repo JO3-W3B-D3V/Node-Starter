@@ -19,9 +19,7 @@ class UserController extends AbstractController {
       }
 
       const results = await this.service.getUsersByPage(pageNumber)
-      response.setHeader('Content-Type', 'application/json')
-      response.status(200)
-      response.send({ results, pages })
+      response.setHeader('Content-Type', 'application/json').status(200).send({ results, pages })
     } catch (exception) {
       next(createError(exception.status, exception.message))
     }
@@ -29,13 +27,9 @@ class UserController extends AbstractController {
 
   async create(request, response, next) {
     try {
-      const requestBody = request.body
       this.verifyJsonRequest(request.headers['content-type'])
-      await this.service.createUser(requestBody)
-
-      response.setHeader('Content-Type', 'text/plain')
-      response.status(201)
-      response.send()
+      await this.service.createUser(request.body)
+      response.setHeader('Content-Type', 'text/plain').status(201).send()
     } catch (exception) {
       next(createError(exception.status, exception.message))
     }
@@ -50,9 +44,7 @@ class UserController extends AbstractController {
         this.notFound(id)
       }
 
-      response.setHeader('Content-Type', 'application/json')
-      response.status(200)
-      response.send(user)
+      response.setHeader('Content-Type', 'application/json').status(200).send(user)
     } catch (exception) {
       next(createError(exception.status, exception.message))
     }
@@ -70,9 +62,10 @@ class UserController extends AbstractController {
 
       request.body.id = id // Just in the event it was /users/:id
       await this.service.updateUser(request.body)
-      response.setHeader('Content-Type', 'application/json')
-      response.status(200)
-      response.send({ forename: request.body.forename, surname: request.body.surname })
+      response
+        .setHeader('Content-Type', 'application/json')
+        .status(200)
+        .send({ forename: request.body.forename, surname: request.body.surname })
     } catch (exception) {
       next(createError(exception.status, exception.message))
     }
@@ -88,9 +81,7 @@ class UserController extends AbstractController {
       }
 
       await this.service.deleteUserById(id)
-      response.setHeader('Content-Type', 'text/plain')
-      response.status(204)
-      response.send()
+      response.setHeader('Content-Type', 'text/plain').status(204).send()
     } catch (exception) {
       next(createError(exception.status, exception.message))
     }
