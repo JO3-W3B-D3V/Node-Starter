@@ -6,7 +6,7 @@
     "start": "node ./src/bin/www",
     "test": "npx jest --collect-coverage --silent",
     "quality": "npm run sonar && npm run security && npm run lint",
-    "local:setup": "npm install && npm run migrations && npm run migrations:test && npm run seeds && npm run seeds:test && npx snyk auth",
+    "local:setup": "npm install && npm run migrations && npm run migrations:test && npm run seeds && npm run seeds:test && npm run migrations:other && npx snyk auth",
     "test:debug": "npx jest --collect-coverage",
     "lint": "eslint .",
     "security": "npm audit && npm run snyk && npm run retire && npx dependency-check ./package.json --unused --no-dev ./src/bin/www",
@@ -14,6 +14,7 @@
     "retire": "npx retire --outputformat depcheck --outputpath depcheck.xml --ignorefile .retireignore.json",
     "migrations": "npx knex migrate:latest",
     "migrations:test": "npx knex migrate:latest --env test",
+    "migrations:other": "npx knex migrate:latest --env otherTest",
     "seeds": "npx knex seed:run",
     "seeds:test": "npx knex seed:run --env test",
     "sonar": "sonarlint --src 'src/**' --tests 'test/**'"

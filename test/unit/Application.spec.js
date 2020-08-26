@@ -6,7 +6,7 @@ describe('Application tests', () => {
     process.env['ENV'] = 'test'
   })
 
-  test('It should hanlde a 404 request', (done) => {
+  test('It should handle a 404 request', (done) => {
     request(Application.init())
       .get('/fdhsjfhdskjfhkdjsfkjdsk') // cspell: disable-line
       .then((response) => {
@@ -21,5 +21,17 @@ describe('Application tests', () => {
     expect(Application.getErrorStatusCode({ status: null })).toBe(500)
     expect(Application.getErrorStatusCode({ status: undefined })).toBe(500)
     expect(Application.getErrorStatusCode({ status: 401 })).toBe(401)
+  })
+
+  test('It should handle a 500 request', (done) => {
+    process.env['DEBUG'] = 'true'
+    process.env['ENV'] = 'otherTest'
+
+    request(Application.init())
+      .get('/users') // cspell: disable-line
+      .then((response) => {
+        expect(response.statusCode).toBe(500)
+        done()
+      })
   })
 })

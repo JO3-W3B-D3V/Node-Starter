@@ -6,3 +6,4 @@ depcheck.xml
 .eslintignore
 .eslintrc.js
 .retireignore.json
+resources/*.sqlite

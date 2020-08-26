@@ -13,6 +13,17 @@ module.exports = {
     useNullAsDefault: true,
   },
 
+  otherTest: {
+    client: 'sqlite3',
+    migrations: {
+      directory: './resources/other',
+    },
+    connection: {
+      filename: './resources/othertest.sqlite',
+    },
+    useNullAsDefault: true,
+  },
+
   development: {
     client: 'sqlite3',
     connection: {

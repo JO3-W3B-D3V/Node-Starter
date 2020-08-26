@@ -35,10 +35,17 @@ describe('UserController tests', () => {
 
   test('It should return a specific user', (done) => {
     request(Application.init())
-      .get('/users/1')
+      .get('/users')
       .then((response) => {
+        const id = response.body.results[0].id
         expect(response.statusCode).toBe(200)
-        done()
+
+        request(Application.init())
+          .get(`/users/${id}`)
+          .then((r) => {
+            expect(r.statusCode).toBe(200)
+            done()
+          })
       })
   })
 
