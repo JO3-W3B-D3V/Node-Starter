@@ -52,7 +52,12 @@ class Application {
       console.error(err)
       res.status(Application.getErrorStatusCode(err))
       res.setHeader('Content-Type', 'text/plain')
-      res.end(err.message)
+
+      if (res.status != 500) {
+        res.end(err.message)
+      } else {
+        res.end('Internal Server Error')
+      }
     })
   }
 

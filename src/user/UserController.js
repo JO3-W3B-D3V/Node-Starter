@@ -64,15 +64,15 @@ class UserController extends AbstractController {
       const id = getId(request)
       this.verifyJsonRequest(request.headers['content-type'])
 
-      if (!isNull(await this.service.getUserById(id))) {
-        request.body.id = id // Just in the event it was /users/:id
-        await this.service.updateUser(request.body)
-        response.setHeader('Content-Type', 'application/json')
-        response.status(200)
-        response.send({ forename: request.body.forename, surname: request.body.surname })
-      } else {
+      if (isNull(await this.service.getUserById(id))) {
         this.notFound(id)
       }
+
+      request.body.id = id // Just in the event it was /users/:id
+      await this.service.updateUser(request.body)
+      response.setHeader('Content-Type', 'application/json')
+      response.status(200)
+      response.send({ forename: request.body.forename, surname: request.body.surname })
     } catch (exception) {
       next(createError(exception.status, exception.message))
     }
@@ -85,10 +85,9 @@ class UserController extends AbstractController {
 
       if (isNull(user)) {
         this.notFound(id)
-      } else {
-        await this.service.deleteUserById(id)
       }
 
+      await this.service.deleteUserById(id)
       response.setHeader('Content-Type', 'text/plain')
       response.status(204)
       response.send()
