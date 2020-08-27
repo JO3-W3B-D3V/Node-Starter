@@ -3,9 +3,12 @@
 /**
  * Module dependencies.
  */
+const path = require('path').join(__dirname, '..', '..', '.env')
+require('dotenv').config({ path })
+
+const log = require('../libs/Logger')
 const Application = require('../Application')
 const app = Application.init()
-const debug = require('debug')('poc:server')
 const http = require('http')
 
 /**
@@ -58,11 +61,11 @@ function onError(error) {
   // handle specific listen errors with friendly messages
   switch (error.code) {
     case 'EACCES':
-      console.error(`${bind} requires elevated privileges`)
+      log.error(`${bind} requires elevated privileges`)
       process.exit(1)
       break
     case 'EADDRINUSE':
-      console.error(`${bind} is already in use`)
+      log.error(`${bind} is already in use`)
       process.exit(1)
       break
     default:
@@ -76,5 +79,5 @@ function onError(error) {
 function onListening() {
   const addr = server.address()
   const bind = typeof addr === 'string' ? `pipe ${addr}` : `port ${addr.port}`
-  debug(`Listening on ${bind}`)
+  log.debug(`Listening on ${bind}`)
 }

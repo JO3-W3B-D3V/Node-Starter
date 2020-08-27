@@ -19,7 +19,6 @@ class UserValidation {
     if (isNull(user.forename)) {
       throw new UserClientError('The provided forename is null')
     } else if (typeof user.forename !== 'string') {
-      console.log(user.forename, typeof user.forename)
       throw new UserClientError('The wrong data type was provided for the user forename')
     } else if (user.forename.replace(/ /g, '').length < MINIMUM_NAME_LENGTH) {
       throw new UserClientError('The provided forename is too short')

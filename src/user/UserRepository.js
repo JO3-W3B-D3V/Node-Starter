@@ -9,9 +9,7 @@ class UserRepository {
   }
 
   getUserById(id) {
-    return this.connection('user').where('id', id)
-.select('*')
-.first()
+    return this.connection('user').where('id', id).select('*').first()
   }
 
   insertUser({ forename, surname }) {
@@ -21,14 +19,11 @@ class UserRepository {
   getUsersByPage(page) {
     const offset = (page - 1) * UserRepository.PER_PAGE
 
-    return this.connection('user').select('*')
-.offset(offset)
-.limit(10)
+    return this.connection('user').select('*').offset(offset).limit(10)
   }
 
   async getTotalNumberOfPages() {
-    const max = await this.connection('user').count('id AS count')
-.first()
+    const max = await this.connection('user').count('id AS count').first()
 
     return Math.ceil(max.count / UserRepository.PER_PAGE)
   }
@@ -38,13 +33,11 @@ class UserRepository {
     const surname = user.surname
     const id = user.id
 
-    return this.connection('user').where('id', id)
-.update({ forename, surname })
+    return this.connection('user').where('id', id).update({ forename, surname })
   }
 
   deleteUserById(id) {
-    return this.connection('user').where('id', id)
-.delete()
+    return this.connection('user').where('id', id).delete()
   }
 }
 

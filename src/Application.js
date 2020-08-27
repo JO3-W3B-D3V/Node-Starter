@@ -1,43 +1,34 @@
+const log = require('./libs/Logger')
+const isNull = require('./libs/isNull')
+
 class Application {
   static init() {
     const express = require('express')
     const app = express()
     const router = express.Router()
 
-    Application.applyEnvironmentVars()
     Application.applySecurityConfig(app)
-    Application.applyOtherConfig(app, express)
-    Application.setupLogger(app)
-    Application.setupCookieParsing(app)
+    Application.applyGeneralConfig(app, express)
     Application.applyRouting(app, router)
     Application.errorHandling(app)
+    log.debug('Application - The application has been configured & is now running')
 
     return app
   }
 
-  static applyEnvironmentVars() {
-    const path = require('path').join(__dirname, '..', '.env')
-    require('dotenv').config({ path })
-  }
-
-  static applyOtherConfig(app, express) {
+  static applyGeneralConfig(app, express) {
     app.use(express.json())
     app.use(express.urlencoded({ extended: false }))
-  }
 
-  static setupLogger(app) {
-    const logger = require('morgan')
-    app.use(logger('dev'))
-  }
-
-  static setupCookieParsing(app) {
-    const cookieParser = require('cookie-parser')
-    app.use(cookieParser())
+    const compression = require('compression')
+    app.use(compression())
+    log.debug('Application - The general configuration has been applied successfully')
   }
 
   static applyRouting(app, router) {
     const UserRouter = require('./user/UserRouter')
     app.use('/users', new UserRouter().applyRouting(router))
+    log.debug('Application - All resources have been applied successfully')
   }
 
   static errorHandling(app) {
@@ -49,16 +40,23 @@ class Application {
     // eslint-disable-next-line  no-unused-vars
     app.use((err, req, res, next) => {
       res.locals.message = err.message
-      console.error(err)
-      res.status(Application.getErrorStatusCode(err))
+      const status = Application.getErrorStatusCode(err)
+      log.error(err)
+      res.status(status)
       res.setHeader('Content-Type', 'text/plain')
 
       if (process.env['DEBUG'] === 'true') {
         res.end(err.message)
       } else {
-        res.end('Internal Server Error')
+        if (status === 500) {
+          res.end('Internal Server Error')
+        } else {
+          res.end(err.message)
+        }
       }
     })
+
+    log.debug('Application - Error handling has been applied successfully')
   }
 
   static applySecurityConfig(app) {
@@ -84,11 +82,11 @@ class Application {
     })
 
     app.use(limiter)
+    log.debug('Application - The rate limiter & security configuration has been applied successfully')
   }
 
   static getErrorStatusCode(err) {
     const code = 500
-    const isNull = require('./libs/isNull')
     const isErrorStatusValid = () => !isNull(err) && !isNull(err.status)
 
     return isErrorStatusValid() ? err.status : code
