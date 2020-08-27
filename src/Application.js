@@ -1,4 +1,4 @@
-const log = require('./libs/Logger')
+const { log } = require('./libs/Logger')
 const isNull = require('./libs/isNull')
 
 class Application {
@@ -44,16 +44,7 @@ class Application {
       log.error(err)
       res.status(status)
       res.setHeader('Content-Type', 'text/plain')
-
-      if (process.env['DEBUG'] === 'true') {
-        res.end(err.message)
-      } else {
-        if (status === 500) {
-          res.end('Internal Server Error')
-        } else {
-          res.end(err.message)
-        }
-      }
+      Application.handleError(res, err, status)
     })
 
     log.debug('Application - Error handling has been applied successfully')
@@ -83,6 +74,18 @@ class Application {
 
     app.use(limiter)
     log.debug('Application - The rate limiter & security configuration has been applied successfully')
+  }
+
+  static handleError(res, err, status) {
+    if (process.env['DEBUG'] === 'true') {
+      res.end(err.message)
+    } else {
+      if (status === 500) {
+        res.end('Internal Server Error')
+      } else {
+        res.end(err.message)
+      }
+    }
   }
 
   static getErrorStatusCode(err) {

@@ -34,4 +34,19 @@ describe('Application tests', () => {
         done()
       })
   })
+
+  test('It should print internal server error', (done) => {
+    process.env['DEBUG'] = 'false'
+    process.env['ENV'] = 'otherTest'
+    const err = null
+    const status = 500
+    const res = {
+      end: (msg) => {
+        expect(msg).toBe('Internal Server Error')
+        done()
+      },
+    }
+
+    Application.handleError(res, err, status)
+  })
 })

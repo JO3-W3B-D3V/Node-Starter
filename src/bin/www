@@ -6,7 +6,7 @@
 const path = require('path').join(__dirname, '..', '..', '.env')
 require('dotenv').config({ path })
 
-const log = require('../libs/Logger')
+const { log } = require('../libs/Logger')
 const Application = require('../Application')
 const app = Application.init()
 const http = require('http')
