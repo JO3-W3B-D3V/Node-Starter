@@ -37,7 +37,7 @@ uses Jest for the unit testing & technologies such as Express & Knex.
 In order to run the application you simply need to run the following command(s):
 
 ```bash
-$ npm local:setup
+$ npm run-script local:setup
 $ npm run-script start
 ```
 
