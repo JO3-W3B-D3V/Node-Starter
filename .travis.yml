@@ -8,7 +8,7 @@ addons:
   sonarcloud:
     organization: "jo3-w3b-d3v"
     token:
-      secure: "1072ee0d01a9c38e8ebe63de16a01abca0be1543" # encrypted value of your token
+      secure: "" # encrypted value of your token
 before_script:
   - npm run-script build:setup
 script: 
@@ -19,4 +19,4 @@ script:
   - npm run-script build:setup
   - npx dependency-check ./package.json --unused --no-dev ./src/bin/www
   - npm run-script retire 
-  - npm run-script sonar
+  # - npm run-script sonar
