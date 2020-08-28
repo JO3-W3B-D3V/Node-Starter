@@ -1,7 +1,7 @@
 const Application = require('../../../src/Application')
 const UserService = require('../../../src/user/UserService')
 
-describe('UserService tests', () => {
+describe('UserService integration tests', () => {
   let service = null
 
   beforeEach(() => {

@@ -1,6 +1,6 @@
 const isNull = require('../../../src/libs/isNull')
 
-describe('isNull tests', () => {
+describe('isNull unit tests', () => {
   test('It should return true with null', () => {
     expect(isNull(null)).toBe(true)
   })

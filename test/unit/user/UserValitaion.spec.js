@@ -1,7 +1,7 @@
 const UserValidation = require('../../../src/user/UserValidation')
 const UserClientError = require('../../../src/user/UserClientError')
 
-describe('UserValidation tests', () => {
+describe('UserValidation unit tests', () => {
   let validator
   let number
   let user

@@ -1,4 +1,3 @@
-const UserClientError = require('./user/UserClientError')
 const isNull = require('./libs/isNull')
 
 class AbstractController {

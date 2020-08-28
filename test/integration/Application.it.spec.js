@@ -1,7 +1,7 @@
 const request = require('supertest')
 const Application = require('../../src/Application')
 
-describe('Application tests', () => {
+describe('Application integration tests', () => {
   beforeEach(() => {
     process.env['ENV'] = 'test'
   })

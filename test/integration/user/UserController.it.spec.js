@@ -1,7 +1,7 @@
 const request = require('supertest')
 const Application = require('../../../src/Application')
 
-describe('UserController tests', () => {
+describe('UserController integration tests', () => {
   beforeEach(() => {
     process.env['ENV'] = 'test'
   })

@@ -14,9 +14,6 @@ class UserController extends AbstractController {
       const pageNumber = !isNull(request.query.page) ? request.query.page : 1
       const pages = pageNumber > 0 && !isNaN(pageNumber) ? await this.service.getTotalNumberOfPages() : 0
 
-      // console.log(pageNumber, pages)
-      // console.log(await this.service.getTotalNumberOfPages())
-
       if (pageNumber > pages) {
         return next(createError(404, `No users found on the page ${pageNumber}`))
       }
@@ -35,7 +32,7 @@ class UserController extends AbstractController {
       const isJsonObject = this.isJsonRequest(request.headers['content-type'])
 
       if (!isJsonObject.isJson) {
-        return next(this.createError(415, isJsonObject.msg))
+        return next(createError(415, isJsonObject.msg))
       }
 
       await this.service.createUser(request.body)
@@ -51,10 +48,8 @@ class UserController extends AbstractController {
     try {
       const id = request.params.id
       const user = await this.service.getUserById(id)
-      if (isNull(user)) {
-        console.log('NO USER FOUND')
-        console.log(id, user)
 
+      if (isNull(user)) {
         return next(createError(404, `No user found with the id of ${id}`))
       }
 
@@ -73,7 +68,7 @@ class UserController extends AbstractController {
       const isJsonObject = this.isJsonRequest(request.headers['content-type'])
 
       if (!isJsonObject.isJson) {
-        return next(this.createError(415, isJsonObject.msg))
+        return next(createError(415, isJsonObject.msg))
       }
 
       if (isNull(await this.service.getUserById(id))) {

@@ -1,6 +1,6 @@
 const { Logger, log } = require('../../../src/libs/Logger')
 
-describe('Logger tests', () => {
+describe('Logger unit tests', () => {
   test('It should be using the test logger', () => {
     process.env['ENV'] = 'test'
     expect(new Logger('test').printer.fields.name).toBe('test')

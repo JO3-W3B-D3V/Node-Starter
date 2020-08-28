@@ -1,6 +1,6 @@
 const AbstractController = require('../../src/AbstractController')
 
-describe('Application tests', () => {
+describe('Application unit tests', () => {
   const controller = new AbstractController()
   let expectedMessage
   let isJsonObject

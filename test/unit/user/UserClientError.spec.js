@@ -1,6 +1,6 @@
 const UserClientError = require('../../../src/user/UserClientError')
 
-describe('UserClientError tests', () => {
+describe('UserClientError unit tests', () => {
   test('It should have the message "Invalid parameters provided"', () => {
     let error = new UserClientError(null)
     expect(error.message).toBe('Invalid parameters provided')
