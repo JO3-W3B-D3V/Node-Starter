@@ -5,7 +5,6 @@
 [![SonarCloud Coverage](https://sonarcloud.io/api/project_badges/measure?project=JO3-W3B-D3V_Node-Starter&metric=coverage)](https://sonarcloud.io/component_measures/metric/coverage/list?id=JO3-W3B-D3V_Node-Starter)
 [![SonarCloud Bugs](https://sonarcloud.io/api/project_badges/measure?project=JO3-W3B-D3V_Node-Starter&metric=bugs)](https://sonarcloud.io/component_measures/metric/reliability_rating/list?id=JO3-W3B-D3V_Node-Starter)
 [![SonarCloud Vulnerabilities](https://sonarcloud.io/api/project_badges/measure?project=JO3-W3B-D3V_Node-Starter&metric=vulnerabilities)](https://sonarcloud.io/component_measures/metric/vulnerabilities/list?id=JO3-W3B-D3V_Node-Starter)
-
 [![SonarCloud Reliability Rating](https://sonarcloud.io/api/project_badges/measure?project=JO3-W3B-D3V_Node-Starter&metric=reliability_rating)](https://sonarcloud.io/component_measures/metric/reliability_rating/list?id=JO3-W3B-D3V_Node-Starter)
 [![SonarCloud Security Rating](https://sonarcloud.io/api/project_badges/measure?project=JO3-W3B-D3V_Node-Starter&metric=security_rating)](https://sonarcloud.io/component_measures/metric/security_rating/list?id=JO3-W3B-D3V_Node-Starter)
 [![SonarCloud Tech Debt](https://sonarcloud.io/api/project_badges/measure?project=JO3-W3B-D3V_Node-Starter&metric=sqale_index)](https://sonarcloud.io/component_measures/metric/sqale_index/list?id=JO3-W3B-D3V_Node-Starter)
