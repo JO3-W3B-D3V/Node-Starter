@@ -7,6 +7,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
+        ## Just to make sure that it can build with multiple versions of node.
         node-version: [8.x, 10.x, 12.x, 14.x]
     steps:
       - uses: actions/checkout@v2
@@ -22,7 +23,7 @@ jobs:
         run: npx dependency-check ./package.json --unused --no-dev ./src/bin/www
       - name: Run Retire JS
         run: npm run-script retire 
-      - name: SonarCloud Scan
+      - name: Sonar Cloud Scan
         uses: sonarsource/sonarcloud-github-action@master
         env: 
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
