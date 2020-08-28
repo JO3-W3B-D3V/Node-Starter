@@ -16,4 +16,10 @@ describe('UserClientError tests', () => {
     const error = new UserClientError('Test message')
     expect(error.message).toBe('Test message')
   })
+
+  test('It should have the status of 415 ', () => {
+    const error = new UserClientError('Test message', 415)
+    expect(error.message).toBe('Test message')
+    expect(error.status).toBe(415)
+  })
 })

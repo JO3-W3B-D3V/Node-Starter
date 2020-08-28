@@ -14,8 +14,11 @@ class UserController extends AbstractController {
       const pageNumber = !isNull(request.query.page) ? request.query.page : 1
       const pages = pageNumber > 0 && !isNaN(pageNumber) ? await this.service.getTotalNumberOfPages() : 0
 
+      // console.log(pageNumber, pages)
+      // console.log(await this.service.getTotalNumberOfPages())
+
       if (pageNumber > pages) {
-        this.notFound(pageNumber, `No users found on the page ${pageNumber}`)
+        return next(createError(404, `No users found on the page ${pageNumber}`))
       }
 
       const results = await this.service.getUsersByPage(pageNumber)
@@ -29,7 +32,12 @@ class UserController extends AbstractController {
 
   async create(request, response, next) {
     try {
-      this.verifyJsonRequest(request.headers['content-type'])
+      const isJsonObject = this.isJsonRequest(request.headers['content-type'])
+
+      if (!isJsonObject.isJson) {
+        return next(this.createError(415, isJsonObject.msg))
+      }
+
       await this.service.createUser(request.body)
       response.setHeader('Content-Type', 'text/plain')
       response.status(201)
@@ -43,9 +51,11 @@ class UserController extends AbstractController {
     try {
       const id = request.params.id
       const user = await this.service.getUserById(id)
-
       if (isNull(user)) {
-        this.notFound(id)
+        console.log('NO USER FOUND')
+        console.log(id, user)
+
+        return next(createError(404, `No user found with the id of ${id}`))
       }
 
       response.setHeader('Content-Type', 'application/json')
@@ -60,10 +70,14 @@ class UserController extends AbstractController {
     try {
       const getId = (r) => (!isNull(r.params.id) ? r.params.id : !isNull(r.body.id) ? r.body.id : -1)
       const id = getId(request)
-      this.verifyJsonRequest(request.headers['content-type'])
+      const isJsonObject = this.isJsonRequest(request.headers['content-type'])
+
+      if (!isJsonObject.isJson) {
+        return next(this.createError(415, isJsonObject.msg))
+      }
 
       if (isNull(await this.service.getUserById(id))) {
-        this.notFound(id)
+        return next(createError(404, `No user found with the id of ${id}`))
       }
 
       request.body.id = id // Just in the event it was /users/:id
@@ -82,7 +96,7 @@ class UserController extends AbstractController {
       const user = await this.service.getUserById(id)
 
       if (isNull(user)) {
-        this.notFound(id)
+        return next(createError(404, `No user found with the id of ${id}`))
       }
 
       await this.service.deleteUserById(id)

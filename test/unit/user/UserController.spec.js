@@ -1,246 +1,111 @@
-const request = require('supertest')
-const Application = require('../../../src/Application')
+const UserController = require('../../../src/user/UserController')
+const UserService = require('../../../src/user/UserService')
+jest.mock('../../../src/user/UserService')
 
 describe('UserController tests', () => {
+  let user
+  let mockService
+  let controller
+  let mockRequest
+  let mockResponse
+  let mockNextFunction
+  let expectedStatus
+  let resultStats
+
   beforeEach(() => {
-    process.env['ENV'] = 'test'
-  })
-
-  test('It should respond with an array of objects', (done) => {
-    request(Application.init())
-      .get('/users')
-      .then((response) => {
-        expect(response.statusCode).toBe(200)
-        done()
-      })
-  })
-
-  test('It should handle a page too big', (done) => {
-    request(Application.init())
-      .get('/users?page=9999')
-      .then((response) => {
-        expect(response.statusCode).toBe(404)
-        done()
-      })
-  })
-
-  test('It should handle an invalid page', (done) => {
-    request(Application.init())
-      .get('/users?page=-1')
-      .then((response) => {
-        expect(response.statusCode).toBe(400)
-        done()
-      })
-  })
-
-  test('It should return a specific user', (done) => {
-    request(Application.init())
-      .get('/users')
-      .then((response) => {
-        const id = response.body.results[0].id
-        expect(response.statusCode).toBe(200)
-
-        request(Application.init())
-          .get(`/users/${id}`)
-          .then((r) => {
-            expect(r.statusCode).toBe(200)
-            done()
-          })
-      })
-  })
-
-  test('It should return a  404 with odd id value', (done) => {
-    request(Application.init())
-      .get('/users/99999999999')
-      .then((response) => {
-        expect(response.statusCode).toBe(404)
-        done()
-      })
-  })
-
-  test('It should return a  400 with a bad id value', (done) => {
-    request(Application.init())
-      .get('/users/-1')
-      .then((response) => {
-        expect(response.statusCode).toBe(400)
-        done()
-      })
-  })
-
-  test('It should return a 415 for no content type header', (done) => {
-    const testUser = {
-      forename: 'Unit',
-      surname: 'Test',
+    mockNextFunction = () => fail('it should not reach here')
+    expectedStatus = 200
+    user = {
+      forename: 'Joe',
+      surname: 'Bloggs',
     }
 
-    request(Application.init())
-      .post('/users')
-      .send(JSON.stringify(testUser))
-      .then((response) => {
-        expect(response.statusCode).toBe(415)
-        done()
-      })
-  })
-
-  test('It should return a 400 due to invalid params', (done) => {
-    const testUser = {
-      forename: 20,
-      surname: 'Test',
+    mockResponse = {
+      status: (s) => expect(s).toBe(expectedStatus),
+      setHeader: (f) => f,
+      send: (f) => f,
     }
 
-    request(Application.init())
-      .post('/users')
-      .set('content-type', 'application/json')
-      .send(JSON.stringify(testUser))
-      .then((response) => {
-        expect(response.statusCode).toBe(400)
-        done()
-      })
-  })
-
-  test('It should return allow a user to be created', (done) => {
-    const testUser = {
-      forename: 'Unit',
-      surname: 'Test',
+    mockRequest = {
+      query: {
+        page: 1,
+      },
+      headers: {
+        'content-type': 'application/json',
+      },
+      body: { ...user },
+      params: {
+        id: 1,
+      },
     }
 
-    request(Application.init())
-      .post('/users')
-      .set('content-type', 'application/json')
-      .send(JSON.stringify(testUser))
-      .then((response) => {
-        expect(response.statusCode).toBe(201)
-        done()
-      })
-  })
-
-  test('It should update a user', (done) => {
-    const testUser = {
-      id: 1,
-      forename: 'Unit',
-      surname: 'Testing',
+    const page = {
+      results: { ...user },
+      pages: 1,
     }
 
-    request(Application.init())
-      .get('/users')
-      .then((response) => {
-        testUser.id = response.body.results[0].id
-        expect(response.statusCode).toBe(200)
+    mockService = new UserService()
+    mockService.getUserById.mockResolvedValue({ ...user })
+    mockService.getTotalNumberOfPages.mockResolvedValue(1)
+    mockService.getUsersByPage.mockResolvedValue(page)
+    mockService.createUser.mockResolvedValue(null)
+    mockService.updateUser.mockResolvedValue(undefined)
+    mockService.deleteUserById.mockResolvedValue(undefined)
 
-        request(Application.init())
-          .put('/users')
-          .set('content-type', 'application/json')
-          .send(JSON.stringify(testUser))
-          .then((r) => {
-            expect(r.statusCode).toBe(200)
-            done()
-          })
-      })
+    controller = new UserController()
   })
 
-  test('It should update an existing user', (done) => {
-    const testUser = {
-      forename: 'Unit',
-      surname: 'Testing',
-    }
-
-    request(Application.init())
-      .get('/users')
-      .then((response) => {
-        const id = response.body.results[0].id
-        expect(response.statusCode).toBe(200)
-
-        request(Application.init())
-          .put(`/users/${id}`)
-          .set('content-type', 'application/json')
-          .send(JSON.stringify(testUser))
-          .then((r) => {
-            expect(r.statusCode).toBe(200)
-            done()
-          })
-      })
+  test('It should get a page of users with success', () => {
+    expectedStatus = 200
+    controller.page(mockRequest, mockResponse, mockNextFunction)
   })
 
-  test('It should return a 404 when trying to update invalid user id', (done) => {
-    const testUser = {
-      id: 9999999999999999999999999999,
-      forename: 'Unit',
-      surname: 'Testing',
-    }
-
-    request(Application.init())
-      .put('/users')
-      .set('content-type', 'application/json')
-      .send(JSON.stringify(testUser))
-      .then((response) => {
-        expect(response.statusCode).toBe(404)
-        done()
-      })
+  test('It should get a page of users, providing no params with success', () => {
+    expectedStatus = 200
+    delete mockRequest.query.page
+    controller.page(mockRequest, mockResponse, mockNextFunction)
   })
 
-  test('It should return a 400 when trying to update invalid user id', (done) => {
-    const testUser = {
-      id: null,
-      forename: 'Unit',
-      surname: 'Testing',
-    }
-
-    request(Application.init())
-      .put('/users')
-      .set('content-type', 'application/json')
-      .send(JSON.stringify(testUser))
-      .then((response) => {
-        expect(response.statusCode).toBe(400)
-        done()
-      })
+  test('It should create a new user with success', () => {
+    expectedStatus = 201
+    controller.create(mockRequest, mockResponse, mockNextFunction)
   })
 
-  test('It should return a 415 when trying to update invalid user content type header', (done) => {
-    const testUser = {
-      id: 1,
-      forename: 'Unit',
-      surname: 'Testing',
-    }
+  test('It should read an existing user with success', async () => {
+    expectedStatus = 200
+    const resultUser = await mockService.getUserById(1)
+    console.log(resultUser)
+    expect(resultUser).toStrictEqual(user)
 
-    request(Application.init())
-      .put('/users')
-      .send(JSON.stringify(testUser))
-      .then((response) => {
-        expect(response.statusCode).toBe(415)
-        done()
-      })
+    controller.read(mockRequest, mockResponse, mockNextFunction)
   })
 
-  test('It should delete a user', (done) => {
-    request(Application.init())
-      .get('/users')
-      .then((response) => {
-        expect(response.statusCode).toBe(200)
+  // test('It should update an existing user with success', () => {
+  //   expectedStatus = 200
+  //   controller.update(mockRequest, mockResponse, mockNextFunction)
+  // })
 
-        request(Application.init())
-          .delete(`/users/${response.body.results[0].id}`)
-          .then((r) => {
-            expect(r.statusCode).toBe(204)
-            done()
-          })
-      })
-  })
+  // test('It should delete an existing user with success', () => {
+  //   expectedStatus = 204
+  //   mockResponse.status = (s) => expect(s).toBe(expectedStatus)
+  //   controller.delete(mockRequest, mockResponse, mockNextFunction)
+  // })
 
-  test('It should return a 404 when delete a user with an invalid id', (done) => {
-    request(Application.init())
-      .delete('/users/999999999999999999999999999999')
-      .then((response) => {
-        expect(response.statusCode).toBe(404)
-        done()
-      })
-  })
+  // test('It should fail to get a page of users because of an invalid data type', () => {
+  //   expectedStatus = 400
+  //   mockRequest.query.page = 'test'
+  //   mockResponse.status = (s) => expect(s).toBe(expectedStatus)
+  //   controller.page(mockRequest, mockResponse, mockNextFunction)
+  // })
 
-  test('It should return a 400 when delete a user with an invalid id', (done) => {
-    request(Application.init())
-      .delete('/users/-9090')
-      .then((response) => {
-        expect(response.statusCode).toBe(400)
-        done()
-      })
-  })
+  // test('It should fail to get a page of users because the page value exceeds the number of pages', () => {
+  //   expectedStatus = 404
+  //   mockRequest.query.page = 2
+  //   mockResponse.status = (s) => {
+  //     expect(s).toBe(expectedStatus)
+  //     // console.log(s, expectedStatus)
+  //   }
+  //   // console.log(mockResponse.status.toString())
+  //   controller.page(mockRequest, mockResponse, mockNextFunction)
+  // })
 })

@@ -8,7 +8,7 @@ module.exports = {
     'jest/globals': true,
   },
   parserOptions: {
-    ecmaVersion: 2017,
+    ecmaVersion: 2019,
     sourceType: 'module',
     ecmaFeatures: {
       experimentalObjectRestSpread: true,
