@@ -1,21 +1,16 @@
 language: node_js
 node_js:
   - 14
-
 # branches:
 #   only:
 #     - master
-
-    addons:
-      sonarcloud:
-        organization: "jo3-w3b-d3v"
-        token:
-          secure: "1072ee0d01a9c38e8ebe63de16a01abca0be1543" # encrypted value of your token
-
-
+addons:
+  sonarcloud:
+    organization: "jo3-w3b-d3v"
+    token:
+      secure: "1072ee0d01a9c38e8ebe63de16a01abca0be1543" # encrypted value of your token
 before_script:
   - npm run-script build:setup
-
 script: 
   - npm run-script test
   - npm run-script lint
