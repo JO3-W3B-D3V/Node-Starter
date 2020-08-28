@@ -18,4 +18,5 @@ script:
   - npm run-script build:setup
   - npx dependency-check ./package.json --unused --no-dev ./src/bin/www
   - npm run-script retire 
+  - sonar-scanner
   # - npm run-script sonar
