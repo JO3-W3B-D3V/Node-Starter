@@ -6,6 +6,7 @@
     "start": "node ./src/bin/www | bunyan",
     "test": "npx jest --collect-coverage --silent",
     "quality": "npm run sonar && npm run security && npm run lint",
+    "build:setup": "npm install && npm run migrations && npm run migrations:test && npm run seeds && npm run seeds:test && npm run migrations:other",
     "local:setup": "npm install && npm run migrations && npm run migrations:test && npm run seeds && npm run seeds:test && npm run migrations:other && npx snyk auth",
     "test:debug": "npx jest --collect-coverage",
     "lint": "eslint .",
