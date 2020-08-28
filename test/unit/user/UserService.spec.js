@@ -1,147 +1,57 @@
-const Application = require('../../../src/Application')
 const UserService = require('../../../src/user/UserService')
+const UserValidation = require('../../../src/user/UserValidation')
+const UserRepository = require('../../../src/user/UserRepository')
+jest.mock('../../../src/user/UserValidation')
+jest.mock('../../../src/user/UserRepository')
 
-describe('UserService tests', () => {
-  let service = null
+describe('UserService unit tests', () => {
+  let service
+  let mockValidation
+  let mockRepository
+  let user
 
   beforeEach(() => {
-    process.env['ENV'] = 'test'
     service = new UserService()
-    Application.init()
+    mockValidation = new UserValidation()
+    mockRepository = new UserRepository()
+    user = { forename: 'Joe', surname: 'Bloggs' }
   })
 
-  test('It should throw an exception for null id', () => {
-    expect(() => service.getUserById(null)).toThrow(Error)
+  test('It should get user by id with no issues', () => {
+    mockValidation.idValidation.mockImplementation = (f) => f
+    mockRepository.getUserById.mockResolvedValue({ ...user })
+    expect(() => service.getUserById(1)).not.toThrowError()
   })
 
-  test('It should throw an exception for an isNaN id', () => {
-    expect(() => service.getUserById('tes')).toThrow(Error)
+  test('It should get user by page with no issues', () => {
+    mockValidation.pageValidation.mockImplementation = (f) => f
+    mockRepository.getUsersByPage.mockResolvedValue([{ ...user }])
+    expect(() => service.getUsersByPage(1)).not.toThrowError()
   })
 
-  test("It should throw an exception for an id that's <= 0", () => {
-    expect(() => service.getUserById(0)).toThrow(Error)
+  test('It should get the total number of pages with no issues', () => {
+    mockRepository.getTotalNumberOfPages.mockResolvedValue(20)
+    expect(() => service.getTotalNumberOfPages()).not.toThrowError()
   })
 
-  test('It should throw an exception for null page', () => {
-    expect(() => service.getUsersByPage(null)).toThrow(Error)
+  test('It should create a new users with no issues', () => {
+    mockValidation.validateUserObject.mockImplementation = (f) => f
+    mockRepository.insertUser.mockResolvedValue(null)
+    expect(() => service.createUser(user)).not.toThrowError()
   })
 
-  test('It should throw an exception for an isNaN page', () => {
-    expect(() => service.getUsersByPage('tes')).toThrow(Error)
+  test('It should update an existing users with no issues', () => {
+    mockValidation.validateUserObject.mockImplementation = (f) => f
+    mockValidation.idValidation.mockImplementation = (f) => f
+    mockRepository.updateUser.mockResolvedValue(null)
+    user.id = 1
+    expect(() => service.updateUser(user)).not.toThrowError()
   })
 
-  test("It should throw an exception for a page that's <= 0", () => {
-    expect(() => service.getUsersByPage(0)).toThrow(Error)
-  })
-
-  test('It should throw an exception for a null user', () => {
-    expect(() => service.createUser(null)).toThrow(Error)
-  })
-
-  test('It should throw an exception for an invalid data type', () => {
-    expect(() => service.createUser(9)).toThrow(Error)
-  })
-
-  test('It should throw an exception for a user with a null forename', () => {
-    const testUser = {
-      forename: null,
-      surname: 'Po',
-    }
-    expect(() => service.createUser(testUser)).toThrow(Error)
-  })
-
-  test('It should throw an exception for a user with a short forename', () => {
-    const testUser = {
-      forename: 'J',
-      surname: 'Po',
-    }
-    expect(() => service.createUser(testUser)).toThrow(Error)
-  })
-
-  test('It should throw an exception for a user with a forename of the wrong data type', () => {
-    const testUser = {
-      forename: 99,
-      surname: 'Po',
-    }
-    expect(() => service.createUser(testUser)).toThrow(Error)
-  })
-
-  test("It should throw an exception for a user with a forename that's just white space", () => {
-    const testUser = {
-      forename: '   J ',
-      surname: 'Po',
-    }
-    expect(() => service.createUser(testUser)).toThrow(Error)
-  })
-
-  test('It should throw an exception for a user with a long forename', () => {
-    const testUser = {
-      forename: 'Jjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjj',
-      surname: 'Po',
-    }
-    expect(() => service.createUser(testUser)).toThrow(Error)
-  })
-
-  test('It should throw an exception for a user with an invalid forename', () => {
-    const testUser = {
-      forename: "<script>alert('Hello');</script>)",
-      surname: 'Po',
-    }
-    expect(() => service.createUser(testUser)).toThrow(Error)
-
-    testUser.forename = "Jack''"
-    expect(() => service.createUser(testUser)).toThrow(Error)
-  })
-
-  test('It should throw an exception for a user with a null surname', () => {
-    const testUser = {
-      forename: 'Joe',
-      surname: null,
-    }
-    expect(() => service.createUser(testUser)).toThrow(Error)
-  })
-
-  test('It should throw an exception for a user with a short surname', () => {
-    const testUser = {
-      forename: 'Joe',
-      surname: 'B',
-    }
-    expect(() => service.createUser(testUser)).toThrow(Error)
-  })
-
-  test('It should throw an exception for a user with a surname of the wrong data type', () => {
-    const testUser = {
-      forename: 'Joe',
-      surname: 99,
-    }
-    expect(() => service.createUser(testUser)).toThrow(Error)
-  })
-
-  test("It should throw an exception for a user with a surname that's just white space", () => {
-    const testUser = {
-      forename: 'Joe',
-      surname: '  B   ',
-    }
-    expect(() => service.createUser(testUser)).toThrow(Error)
-  })
-
-  test('It should throw an exception for a user with a long surname', () => {
-    const testUser = {
-      forename: 'Joe',
-      surname: 'Blogggggggggggggggggggggggggggssssssssssssssssssssssssssssssss',
-    }
-    expect(() => service.createUser(testUser)).toThrow(Error)
-  })
-
-  test('It should throw an exception for a user with an invalid surname', () => {
-    const testUser = {
-      forename: 'Joe',
-      surname: "<script>alert('Hello');</script>)",
-    }
-    expect(() => service.createUser(testUser)).toThrow(Error)
-
-    // cspell: disable-next-line
-    testUser.surname = "O''Conor"
-    expect(() => service.createUser(testUser)).toThrow(Error)
+  test('It should delete an existing users with no issues', () => {
+    const id = 1
+    mockValidation.idValidation.mockImplementation = (f) => f
+    mockRepository.updateUser.mockResolvedValue(null)
+    expect(() => service.deleteUserById(id)).not.toThrowError()
   })
 })

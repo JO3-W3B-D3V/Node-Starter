@@ -1,4 +1,3 @@
-const UserClientError = require('./user/UserClientError')
 const isNull = require('./libs/isNull')
 
 class AbstractController {
@@ -28,28 +27,21 @@ class AbstractController {
   }
 
   // General Purpose methods
-  verifyJsonRequest(contentType) {
+  isJsonRequest(contentType) {
     const expected = 'application/json'
     const startOfMessage = 'Unsupported media type,'
+    let isJson = true
     let msg = null
 
     if (isNull(contentType)) {
       msg = `${startOfMessage} no content type header was provided, expected ${expected}`
+      isJson = false
     } else if (contentType !== 'application/json') {
       msg = `${startOfMessage} the provided content type header was ${contentType}, expected ${expected}`
+      isJson = false
     }
 
-    if (!isNull(msg)) {
-      throw new UserClientError(msg, 415)
-    }
-  }
-
-  notFound(id, msg) {
-    if (!isNull(msg)) {
-      throw new UserClientError(msg, 404)
-    } else {
-      throw new UserClientError(`No user found with the id of ${id}`, 404)
-    }
+    return { isJson, msg }
   }
 }
 
