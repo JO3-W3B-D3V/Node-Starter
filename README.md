@@ -2,7 +2,7 @@
 
 [![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://paypal.me/JO3W3BD3V?locale.x=en_GB)
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=JO3-W3B-D3V_Node-Starter&metric=alert_status)](https://sonarcloud.io/dashboard?id=JO3-W3B-D3V_Node-Starter)
-[![Build Status](https://travis-ci.org/JO3-W3B-D3V/Node-Starter.svg?branch=master)](https://travis-ci.org/github/JO3-W3B-D3V/Node-Starter)
+[![Build Status](https://github.com/JO3-W3B-D3V/Node-Starter/workflows/Continuous%20Integration/badge.svg)](https://github.com/JO3-W3B-D3V/Node-Starter/actions?query=workflow%3A%22Continuous+Integration%22)
 [![Known Vulnerabilities](https://snyk.io/test/github/JO3-W3B-D3V/Node-Starter/badge.svg?targetFile=package.json)](https://snyk.io/test/github/JO3-W3B-D3V/Node-Starter?targetFile=package.json)
 [![Code Climate](https://codeclimate.com/github/JO3-W3B-D3V/Node-Starter/badges/gpa.svg)](https://codeclimate.com/github/JO3-W3B-D3V/Node-Starter)
 
