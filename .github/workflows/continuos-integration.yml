@@ -8,21 +8,21 @@ jobs:
     strategy:
       matrix:
         node-version: [8.x, 10.x, 12.x, 14.x]
-  steps:
-    - uses: actions/checkout@v2
-    - name: NPM Local Setup
-      run: npm run-script build:setup
-    - name: Run Tests
-      run: npm run-script test
-    - name: Run Lint
-      run: npm run lint 
-    - name: NPM Audit
-      run: npm audit 
-    - name: Check Dependencies 
-      run: npx dependency-check ./package.json --unused --no-dev ./src/bin/www
-    - name: Run Retire JS
-      run: npm run-script retire 
-    - name: SonarCloud Scan
-      uses: sonarsource/sonarcloud-github-action@master
-      env: 
-        SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+    steps:
+      - uses: actions/checkout@v2
+      - name: NPM Local Setup
+        run: npm run-script build:setup
+      - name: Run Tests
+        run: npm run-script test
+      - name: Run Lint
+        run: npm run lint 
+      - name: NPM Audit
+        run: npm audit 
+      - name: Check Dependencies 
+        run: npx dependency-check ./package.json --unused --no-dev ./src/bin/www
+      - name: Run Retire JS
+        run: npm run-script retire 
+      - name: SonarCloud Scan
+        uses: sonarsource/sonarcloud-github-action@master
+        env: 
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
