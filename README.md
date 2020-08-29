@@ -20,6 +20,8 @@
 This repository includes some demonstration Node based application that
 uses Jest for the unit testing & technologies such as Express & Knex.
 
+<hr/>
+
 ## Requirements
 
 - Install Node
