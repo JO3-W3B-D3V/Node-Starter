@@ -19,6 +19,6 @@ jobs:
         uses: AkhileshNS/heroku-deploy@v3.4.6
         with:
           heroku_api_key: ${{secrets.HEROKU_API_KEY}}
-          heroku_app_name: ""
+          heroku_app_name: "jo3-node-starter"
           heroku_email: "joe-evs196@hotmail.co.uk"
           usedocker: true
