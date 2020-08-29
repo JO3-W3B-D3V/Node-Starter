@@ -1,6 +1,6 @@
 # Node Starter
 
-[![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://paypal.me/JO3W3BD3V?locale.x=en_GB)
+[![Build Status](https://github.com/JO3-W3B-D3V/Node-Starter/workflows/Continuous%20Integration/badge.svg)](https://github.com/JO3-W3B-D3V/Node-Starter/actions?query=workflow%3A%22Continuous+Integration%22)
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=JO3-W3B-D3V_Node-Starter&metric=alert_status)](https://sonarcloud.io/dashboard?id=JO3-W3B-D3V_Node-Starter)
 [![SonarCloud Coverage](https://sonarcloud.io/api/project_badges/measure?project=JO3-W3B-D3V_Node-Starter&metric=coverage)](https://sonarcloud.io/component_measures/metric/coverage/list?id=JO3-W3B-D3V_Node-Starter)
 [![SonarCloud Bugs](https://sonarcloud.io/api/project_badges/measure?project=JO3-W3B-D3V_Node-Starter&metric=bugs)](https://sonarcloud.io/component_measures/metric/reliability_rating/list?id=JO3-W3B-D3V_Node-Starter)
@@ -9,12 +9,18 @@
 [![SonarCloud Security Rating](https://sonarcloud.io/api/project_badges/measure?project=JO3-W3B-D3V_Node-Starter&metric=security_rating)](https://sonarcloud.io/component_measures/metric/security_rating/list?id=JO3-W3B-D3V_Node-Starter)
 [![SonarCloud Tech Debt](https://sonarcloud.io/api/project_badges/measure?project=JO3-W3B-D3V_Node-Starter&metric=sqale_index)](https://sonarcloud.io/component_measures/metric/sqale_index/list?id=JO3-W3B-D3V_Node-Starter)
 [![SonarCloud Code Smells](https://sonarcloud.io/api/project_badges/measure?project=JO3-W3B-D3V_Node-Starter&metric=code_smells)](https://sonarcloud.io/component_measures/metric/code_smells/list?id=JO3-W3B-D3V_Node-Starter)
-[![Build Status](https://github.com/JO3-W3B-D3V/Node-Starter/workflows/Continuous%20Integration/badge.svg)](https://github.com/JO3-W3B-D3V/Node-Starter/actions?query=workflow%3A%22Continuous+Integration%22)
 [![Known Vulnerabilities](https://snyk.io/test/github/JO3-W3B-D3V/Node-Starter/badge.svg?targetFile=package.json)](https://snyk.io/test/github/JO3-W3B-D3V/Node-Starter?targetFile=package.json)
 [![Code Climate](https://codeclimate.com/github/JO3-W3B-D3V/Node-Starter/badges/gpa.svg)](https://codeclimate.com/github/JO3-W3B-D3V/Node-Starter)
 
+[![ko-fi](https://www.ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/E1E024921)
+[![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://paypal.me/JO3W3BD3V?locale.x=en_GB)
+
+<hr/>
+
 This repository includes some demonstration Node based application that
 uses Jest for the unit testing & technologies such as Express & Knex.
+
+<hr/>
 
 ## Requirements
 
@@ -37,7 +43,6 @@ uses Jest for the unit testing & technologies such as Express & Knex.
 - Install the extension called 'NPM Intellisense'
 - Install the extension called 'Prettier — Code formatter'
 - Install the extension called 'Version Lens'
-- Install the theme called 'Monokai ST3'
 
 #### Other Suggestions (Optional)
 
