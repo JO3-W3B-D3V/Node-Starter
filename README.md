@@ -135,7 +135,5 @@ $ npm run quality
 
 ## Todo
 
-- Implement a complete & mature CI/CD pipeline.
-- Implement a Dockerfile.
 - Use a number of monitoring technologies, i.e. AppSensor.
 - etc.
