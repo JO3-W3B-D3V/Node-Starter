@@ -1,6 +1,6 @@
 # Node Starter
 
-[![Build Status](https://github.com/JO3-W3B-D3V/Node-Starter/workflows/Continuous%20Integration/badge.svg)](https://github.com/JO3-W3B-D3V/Node-Starter/actions?query=workflow%3A%22Continuous+Integration%22)
+[![CI/CD Status]](https://github.com/JO3-W3B-D3V/Node-Starter/workflows/Continuous%20Integration%20&%20Deployment/badge.svg)](https://github.com/JO3-W3B-D3V/Node-Starter/actions?query=workflow%3A%22Continuous+Integration+%26+Deployment%22)
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=JO3-W3B-D3V_Node-Starter&metric=alert_status)](https://sonarcloud.io/dashboard?id=JO3-W3B-D3V_Node-Starter)
 [![SonarCloud Coverage](https://sonarcloud.io/api/project_badges/measure?project=JO3-W3B-D3V_Node-Starter&metric=coverage)](https://sonarcloud.io/component_measures/metric/coverage/list?id=JO3-W3B-D3V_Node-Starter)
 [![SonarCloud Bugs](https://sonarcloud.io/api/project_badges/measure?project=JO3-W3B-D3V_Node-Starter&metric=bugs)](https://sonarcloud.io/component_measures/metric/reliability_rating/list?id=JO3-W3B-D3V_Node-Starter)
