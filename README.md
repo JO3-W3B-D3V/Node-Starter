@@ -12,8 +12,10 @@
 [![Known Vulnerabilities](https://snyk.io/test/github/JO3-W3B-D3V/Node-Starter/badge.svg?targetFile=package.json)](https://snyk.io/test/github/JO3-W3B-D3V/Node-Starter?targetFile=package.json)
 [![Code Climate](https://codeclimate.com/github/JO3-W3B-D3V/Node-Starter/badges/gpa.svg)](https://codeclimate.com/github/JO3-W3B-D3V/Node-Starter)
 
-[![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://paypal.me/JO3W3BD3V?locale.x=en_GB)
 [![ko-fi](https://www.ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/E1E024921)
+[![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://paypal.me/JO3W3BD3V?locale.x=en_GB)
+
+<hr/>
 
 This repository includes some demonstration Node based application that
 uses Jest for the unit testing & technologies such as Express & Knex.
@@ -39,7 +41,6 @@ uses Jest for the unit testing & technologies such as Express & Knex.
 - Install the extension called 'NPM Intellisense'
 - Install the extension called 'Prettier — Code formatter'
 - Install the extension called 'Version Lens'
-- Install the theme called 'Monokai ST3'
 
 #### Other Suggestions (Optional)
 
