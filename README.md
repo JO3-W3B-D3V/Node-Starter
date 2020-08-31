@@ -18,7 +18,7 @@
 
 This repository includes some demonstration Node based application that
 uses Jest for the unit testing & technologies such as Express & Knex. You should
-see a working example [here](https://jo3-node-starter.herokuapp.com/users)
+see a working example [here](https://jo3-w3b-d3v-node-starter.herokuapp.com/users)
 
 <hr/>
 
