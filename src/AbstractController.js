@@ -1,4 +1,5 @@
 const isNull = require('./libs/isNull')
+const ApplicationError = require('./ApplicationError')
 
 class AbstractController {
   // Read - Pagination
@@ -42,6 +43,22 @@ class AbstractController {
     }
 
     return { isJson, msg }
+  }
+
+  getExceptionStatus(exception) {
+    if (!isNull(exception) && !isNull(exception.status)) {
+      return exception.status
+    } else {
+      return 500
+    }
+  }
+
+  getExceptionMessage(exception) {
+    if (!isNull(exception) && exception instanceof ApplicationError) {
+      return exception.message
+    } else {
+      return 'Internal server error'
+    }
   }
 }
 
