@@ -48,4 +48,22 @@ describe('Application unit tests', () => {
     expect(isJsonObject.isJson).toBe(false)
     expect(isJsonObject.msg).toBe(expectedMessage)
   })
+
+  test('It should return a valid status when handling null', () => {
+    expect(controller.getExceptionMessage(null)).toBe('Internal server error')
+    expect(controller.getExceptionStatus(null)).toBe(500)
+  })
+
+  test('It should return a valid status when handling a random error', () => {
+    const exception = new Error('test')
+    expect(controller.getExceptionMessage(exception)).toBe('Internal server error')
+    expect(controller.getExceptionStatus(exception)).toBe(500)
+  })
+
+  test('It should return a valid status when handling an application error', () => {
+    const UserClientError = require('../../src/user/UserClientError')
+    const userError = new UserClientError()
+    expect(controller.getExceptionMessage(userError)).toBe('Invalid parameters provided')
+    expect(controller.getExceptionStatus(userError)).toBe(400)
+  })
 })

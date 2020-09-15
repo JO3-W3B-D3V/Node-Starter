@@ -23,7 +23,7 @@ class UserController extends AbstractController {
       response.status(200)
       response.send({ results, pages })
     } catch (exception) {
-      next(createError(exception.status, exception.message))
+      next(createError(this.getExceptionStatus(exception), this.getExceptionMessage(exception)))
     }
   }
 
@@ -40,7 +40,7 @@ class UserController extends AbstractController {
       response.status(201)
       response.send()
     } catch (exception) {
-      next(createError(exception.status, exception.message))
+      next(createError(this.getExceptionStatus(exception), this.getExceptionMessage(exception)))
     }
   }
 
@@ -57,7 +57,7 @@ class UserController extends AbstractController {
       response.status(200)
       response.send(user)
     } catch (exception) {
-      next(createError(exception.status, exception.message))
+      next(createError(this.getExceptionStatus(exception), this.getExceptionMessage(exception)))
     }
   }
 
@@ -81,7 +81,7 @@ class UserController extends AbstractController {
       response.status(200)
       response.send({ forename: request.body.forename, surname: request.body.surname })
     } catch (exception) {
-      next(createError(exception.status, exception.message))
+      next(createError(this.getExceptionStatus(exception), this.getExceptionMessage(exception)))
     }
   }
 
@@ -99,7 +99,7 @@ class UserController extends AbstractController {
       response.status(204)
       response.send()
     } catch (exception) {
-      next(createError(exception.status, exception.message))
+      next(createError(this.getExceptionStatus(exception), this.getExceptionMessage(exception)))
     }
   }
 }

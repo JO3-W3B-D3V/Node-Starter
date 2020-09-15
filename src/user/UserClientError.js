@@ -1,4 +1,6 @@
-class UserClientError extends Error {
+const ApplicationError = require('../ApplicationError')
+
+class UserClientError extends ApplicationError {
   constructor(msg, status) {
     const isNull = require('../libs/isNull')
 
