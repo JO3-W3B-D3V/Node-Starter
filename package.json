@@ -43,7 +43,7 @@
     "retire": "^2.2.2",
     "snyk": "^1.381.2",
     "sonarlint": "^1.1.0",
-    "sqlite3": "^5.0.0",
+    "sqlite3": "^5.0.3",
     "superagent": "^6.0.0",
     "supertest": "^4.0.2"
   },
